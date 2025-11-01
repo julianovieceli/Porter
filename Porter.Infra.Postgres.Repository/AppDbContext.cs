@@ -29,8 +29,12 @@ namespace Porter.Infra.Postgres.Repository
                 .HasColumnName("id");
 
 
-            builder.Property(e => e.Login)
-                .HasColumnName("login");
+            builder.Property(e => e.Docto)
+                .HasColumnName("docto");
+            
+            builder.Property(e => e.Name)
+                .HasColumnName("name");
+
 
             builder.Property(e => e.CreateTime)
                 .HasColumnName("createtime");

@@ -10,14 +10,15 @@ CREATE database PorterDb ;
 -- drop TABLE Room;
 -- drop table UserPorter;
 
-create TABLE UserPorter
+CREATE TABLE IF NOT EXISTS UserPorter
 (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        login  VARCHAR(255) NOT NULL UNIQUE,
+        docto  VARCHAR(11) NOT NULL UNIQUE,
+        name  VARCHAR(100) NOT NULL ,
     createTime TIMESTAMP
 );
 
-create TABLE Room
+CREATE TABLE IF NOT EXISTS Room
 (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name  VARCHAR(255) NOT NULL UNIQUE,
@@ -25,7 +26,7 @@ create TABLE Room
 );
 
 
-create TABLE Reservation
+CREATE TABLE IF NOT EXISTS  Reservation
 (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name  VARCHAR(255) NOT NULL,
