@@ -1,10 +1,9 @@
-﻿using Porter.Domain;
-using Porter.Dto;
+﻿using Porter.Common;
 
 namespace Porter.Application.Services.Interfaces
 {
     public interface IUserPorterService
     {
-        Task<IList<ResponseUserPorterDto>> GetAll();
+        Task<Result> GetAll();
     }
 }

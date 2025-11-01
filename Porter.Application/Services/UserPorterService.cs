@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Services.Interfaces;
+using Porter.Common;
 using Porter.Domain.Interfaces;
 using Porter.Dto;
+using System.Collections.Generic;
 
 namespace Porter.Application.Services
 {
@@ -20,11 +22,20 @@ namespace Porter.Application.Services
         }
 
 
-        public async Task<IList<ResponseUserPorterDto>> GetAll()
+        public async Task<Result> GetAll()
         {
-            var userList = await _userPorterRepository.GetAll();
+            try
+            {
+                var userList = await _userPorterRepository.GetAll();
 
-            return userList.Select(u => _dataMapper.Map<ResponseUserPorterDto>(u)).ToList();
+                IList<ResponseUserPorterDto> listToReturn = userList.Select(u => _dataMapper.Map<ResponseUserPorterDto>(u)).ToList();
+
+                return Result<IList<ResponseUserPorterDto>>.Success(listToReturn);
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure("666", "An error occurred while fetching users");
+            }
         }
     }
 }

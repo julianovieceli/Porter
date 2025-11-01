@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Porter.Application.Services.Interfaces;
+using Porter.Common;
+using Porter.Dto;
+using System.Collections.Generic;
 
 namespace Porter.Api.Controllers
 {
@@ -22,13 +25,14 @@ namespace Porter.Api.Controllers
         {
             var result = await _userPorterService.GetAll();
 
-            if (result.Count == 0)
+            if (result.IsFailure)
             {
-                _logger.LogInformation("No results");
-                return NotFound();
+                ErrorResponseDto error = new ErrorResponseDto(result.ErrorCode, result.ErrorMessage);
+
+                return BadRequest(error);
             }
-            _logger.LogInformation("Ok");
-            return Ok(result);
+
+            return Ok(Result<IList<ResponseUserPorterDto>>.Success(((Result<IList<ResponseUserPorterDto>>)result).Value));
         }
     }
 }
