@@ -10,5 +10,7 @@ namespace Porter.Application.Services.Interfaces
         Task<Result> GetById(int Id);
 
         Task<Result> Register(RequestRegisterBookingDto bookingRequest);
+
+        Task<Result> Delete(int Id);
     }
 }

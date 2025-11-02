@@ -10,7 +10,7 @@
         
         Task<int> GetBookingCountByRoomAndPeriod(int roomId, DateTime startDate, DateTime endDate);
 
-        // Task<int> Delete(int id);
+        Task<int> Delete(int Id);
 
         //Task<List<Booking>> GetByRoomIdPerPeriod(int roomId, DateTime startDate, DateTime endDate);
     }

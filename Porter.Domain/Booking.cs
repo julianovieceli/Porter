@@ -40,7 +40,15 @@
             StartDate = startDate;
             EndDate = endDate;
             Obs = obs;
-            CreateTime = DateTime.UtcNow;
+            CreateTime = DateTime.Now.ToUniversalTime();
+        }
+
+        public void Detete()
+        {
+            if(this.DeletedDate.HasValue)
+                throw new Exception("Reserva já está deletada!");
+
+            this.DeletedDate = DateTime.Now.ToUniversalTime();
         }
     }
 }

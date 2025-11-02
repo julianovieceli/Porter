@@ -126,5 +126,28 @@ namespace Porter.Application.Services
                 return Result.Failure("666", e.Message);
             }
         }
+
+
+        public async Task<Result> Delete(int Id)
+        {
+            try
+            {
+                if (Id <= 0)
+                    return Result.Failure("400", "Id inválido");
+
+                if (await _bookingRepository.Delete(Id) > 0)
+                {
+                    return Result.Success;
+                }
+                else
+                {
+                    return Result.Failure("400", "Reserva não encontrada");
+                }
+            }
+            catch (Exception e)
+            {
+                return Result.Failure("666", e.Message);
+            }
+        }
     }
 }

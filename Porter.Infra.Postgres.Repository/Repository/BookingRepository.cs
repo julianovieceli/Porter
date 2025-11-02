@@ -21,7 +21,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
         {
             try
             {
-                var bookings = await _context.Bookings.ToListAsync();
+                var bookings = await _context.Bookings.Where(p => !p.DeletedDate.HasValue).ToListAsync();
 
                 
                 _logger.LogInformation($"Returned {bookings.Count} bookings.");
@@ -97,6 +97,33 @@ namespace Porter.Infra.Postgres.Repository.Repository
             {
                 // Handle exceptions as needed
                 _logger.LogError(ex, "Erro ao gravar uma reserva.");
+                throw;
+            }
+        }
+
+        public async Task<int> Delete(int Id)
+        {
+            try
+            {
+
+                var updatedRows = await _context.Bookings.Where(e => e.Id == Id && !e.DeletedDate.HasValue)
+                    .ExecuteUpdateAsync(setters => setters.SetProperty(e => e.DeletedDate, DateTime.UtcNow));
+
+                //_context.Bookings.Update(booking);
+
+                //int updatedRows = await _context.SaveChangesAsync();
+
+                if (updatedRows > 0)
+                    _logger.LogInformation($"Reserva {Id} excluida com sucesso!");
+                else
+                    _logger.LogInformation($"Reserva {Id} não encontrada!");
+
+                return updatedRows;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions as needed
+                _logger.LogError(ex, "Erro ao excluir uma reserva.");
                 throw;
             }
         }

@@ -58,5 +58,19 @@ namespace Porter.Api.Controllers
 
             return Ok(Result<IList<ResponseBookingDto>>.Success(((Result<IList<ResponseBookingDto>>)result).Response));
         }
+
+        [HttpDelete(Name = "DeleteBooking")]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var result = await _bookingSrevice.Delete(id);
+
+            if (result.IsFailure)
+            {
+                return base.CreateResponseFromResult(result);
+
+            }
+            return Ok();
+        }
     }
 }
