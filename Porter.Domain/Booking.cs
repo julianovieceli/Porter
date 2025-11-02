@@ -37,10 +37,10 @@
 
             Room = room;
             ReservedBy = reservedBy;
-            StartDate = startDate;
-            EndDate = endDate;
+            StartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
+            EndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc); ;
             Obs = obs;
-            CreateTime = DateTime.Now.ToUniversalTime();
+            CreateTime = DateTime.UtcNow;
         }
 
         public void Detete()

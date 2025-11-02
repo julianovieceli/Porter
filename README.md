@@ -16,14 +16,14 @@ CREATE TABLE IF NOT EXISTS Client
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         docto  VARCHAR(11) NOT NULL UNIQUE,
         name  VARCHAR(100) NOT NULL ,
-    createTime TIMESTAMP NOT NULL
+    createTime TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Room
 (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name  VARCHAR(255) NOT NULL UNIQUE,
-    createTime TIMESTAMP NOT NULL
+    createTime TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS booking(
@@ -31,10 +31,10 @@ CREATE TABLE IF NOT EXISTS booking(
     obs varchar(255) NULL,
     roomid integer not null,
     reservedbyid integer not null,
-    startdate timestamp without time zone NOT NULL,
-    enddate timestamp without time zone NOT NULL,
-    createtime timestamp without time zone NOT NULL,
-    deleteddate timestamp without time zone,
+    startdate TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    enddate TIMESTAMP WITHOUT TIME ZONE  NOT NULL,
+    createtime TIMESTAMP WITHOUT TIME ZONE  NOT NULL,
+    deleteddate TIMESTAMP WITHOUT TIME ZONE ,
     PRIMARY KEY(id),
     CONSTRAINT fk_roomid FOREIGN key(roomid) REFERENCES room(id),
     CONSTRAINT fk_clientid FOREIGN key(reservedbyid) REFERENCES client(id)

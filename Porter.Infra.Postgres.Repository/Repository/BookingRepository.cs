@@ -60,6 +60,9 @@ namespace Porter.Infra.Postgres.Repository.Repository
         {
             try
             {
+                startDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
+                endDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
+
 
                 var total = await _context.Bookings.CountAsync(p => 
                 p.Room.Id == roomId

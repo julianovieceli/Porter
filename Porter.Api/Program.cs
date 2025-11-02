@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Porter.Application;
 using Porter.Common;
+using Porter.Common.Utils;
 using Porter.Dto;
 using Porter.Infra.Postgres.Repository;
 using System.Linq;
@@ -25,7 +26,11 @@ builder.Services.AddControllers()
 
             return new BadRequestObjectResult(error);
         };
-    });
+    })
+      .AddJsonOptions(options =>
+      {
+          options.JsonSerializerOptions.Converters.Add(new CustomDateTimeConverter());
+      }); ;
 
 builder.Services.AddSwaggerGen();
 
