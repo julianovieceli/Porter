@@ -1,11 +1,31 @@
+using Microsoft.AspNetCore.Mvc;
 using Porter.Application;
+using Porter.Common;
+using Porter.Dto;
 using Porter.Infra.Postgres.Repository;
+using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var errors = context.ModelState.Where(x => x.Value.Errors.Any())
+                                         .Select(x => new { Field = x.Key, Messages = x.Value.Errors.Select(e => e.ErrorMessage) })
+            .ToList();
+
+            string messagge = String.Join(", ", errors.FirstOrDefault().Messages);  
+            
+            ErrorResponseDto error = new ErrorResponseDto("400", messagge);
+
+
+            return new BadRequestObjectResult(error);
+        };
+    });
 
 builder.Services.AddSwaggerGen();
 

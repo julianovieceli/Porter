@@ -11,7 +11,6 @@ namespace Porter.Infra.Postgres.Repository.Repository
         private readonly AppDbContext _context;
         private readonly ILogger<ClientRepository> _logger;
 
-        // The AppDbContext is injected here
         public ClientRepository(AppDbContext context, ILogger<ClientRepository> logger)
         {
             _context = context;

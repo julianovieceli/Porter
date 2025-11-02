@@ -11,7 +11,6 @@ namespace Porter.Infra.Postgres.Repository.Repository
         private readonly AppDbContext _context;
         private readonly ILogger<RoomRepository> _logger;
 
-        // The AppDbContext is injected here
         public RoomRepository(AppDbContext context, ILogger<RoomRepository> logger)
         {
             _context = context;
@@ -79,12 +78,12 @@ namespace Porter.Infra.Postgres.Repository.Repository
                 int roomId = await _context.SaveChangesAsync();
 
                 if (roomId > 0)
-                    _logger.LogInformation($"Room {roomId} salvo com sucesso!");
+                    _logger.LogInformation($"Room {room.Id} salvo com sucesso!");
                 else
                     _logger.LogInformation($"Erro ao cadastrar uma sala!");
 
 
-                return roomId;
+                return room.Id;
             }
             catch (Exception ex)
             {

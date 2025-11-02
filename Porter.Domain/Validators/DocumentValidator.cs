@@ -10,13 +10,18 @@ public static class DocumentValidator
             return false;
         }
 
-        if (documento.Length == 11)
+        var documentoNovo = documento.Replace(".", "").Replace("-", "");
+
+        if (documentoNovo.Length != documento.Length)
+            return false;
+
+        if (documentoNovo.Length == 11)
         {
-            return IsCpfValid(documento);
+            return IsCpfValid(documentoNovo);
         }
-        else if (documento.Length == 14)
+        else if (documentoNovo.Length == 14)
         {
-            return IsCnpjValid(documento);
+            return IsCnpjValid(documentoNovo);
         }
 
         return false;

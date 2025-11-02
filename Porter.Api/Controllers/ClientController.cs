@@ -46,7 +46,7 @@ namespace Porter.Api.Controllers
 
 
         [HttpPost(Name = "PostClient")]
-        public async Task<IActionResult> RegisterClient(RequestRegisterClientDto registerClient)
+        public async Task<IActionResult> Register(RequestRegisterClientDto registerClient)
         {
             
             var result = await _clientService.Register(registerClient);

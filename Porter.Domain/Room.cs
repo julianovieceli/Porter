@@ -1,5 +1,4 @@
 ﻿using Porter.Domain.Validators;
-using System.Xml.Linq;
 
 namespace Porter.Domain
 {
@@ -23,6 +22,7 @@ namespace Porter.Domain
             }
         }
 
+        public virtual ICollection<Booking> Bookings { get; set; }
 
         public Room(string name)
         {

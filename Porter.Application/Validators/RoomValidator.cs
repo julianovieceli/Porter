@@ -12,9 +12,9 @@ namespace Porter.Application.Validators
                 Custom(
                     (name, context) =>
                     {
-                        if (!NameValidator.IsValidName(name))
+                        if (name.Length < 5)
                         {
-                            context.AddFailure("Nome inválido.");
+                            context.AddFailure("Nome da sala precisa ter 5 caracteres ao menos.");
                         }
                     });
 

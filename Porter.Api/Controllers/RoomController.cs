@@ -46,7 +46,7 @@ namespace Porter.Api.Controllers
 
 
         [HttpPost(Name = "PostRoom")]
-        public async Task<IActionResult> RegisterRoom(RequestRegisterRoomDto registerRoom)
+        public async Task<IActionResult> Register(RequestRegisterRoomDto registerRoom)
         {
             
             var result = await _roomService.Register(registerRoom);

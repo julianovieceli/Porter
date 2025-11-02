@@ -35,6 +35,7 @@ namespace Porter.Domain
             }
         }
 
+        public virtual ICollection<Booking> Bookings { get; set; }
 
         public Client(string name, string docto)
         {
