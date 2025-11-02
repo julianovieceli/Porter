@@ -1,13 +1,19 @@
-﻿namespace Porter.Domain
+﻿using System.Text.Json.Serialization;
+
+namespace Porter.Domain
 {
     public class Booking: BaseDomain
     {
         public string? Obs { get; set; }
 
         public  int RoomId { get; set; }
+
+        [JsonIgnore]
         public  virtual Room Room { get; set; }
 
         public virtual int ReservedById { get; set; }
+
+        [JsonIgnore]
         public virtual Client ReservedBy { get; set; }
 
         public DateTime StartDate { get; set; }

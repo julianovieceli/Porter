@@ -20,7 +20,7 @@ namespace Porter.Application.Services
             _dataMapper = dataMapper;
         }
 
-        protected async Task LogList(BaseDomain entity, string methodName)
+        protected async Task LogList<T>(T entity, string methodName)
         {
             try
             {
@@ -37,14 +37,14 @@ namespace Porter.Application.Services
             }
         }
 
-        protected async Task LogView(BaseDomain entity, string methodName)
+        protected async Task LogView<T>(T entity, string methodName)
         {
             try
             {
                 ArgumentNullException.ThrowIfNull(entity, "entity");
 
                 var data = JsonSerializer.Serialize(entity);
-                Log log = new Log(ACTION.LIST, entity.GetType(), methodName, data);
+                Log log = new Log(ACTION.VIEW, entity.GetType(), methodName, data);
 
                 await _logRepository.Register(log);
 
@@ -55,7 +55,7 @@ namespace Porter.Application.Services
             }
         }
 
-        protected async Task LogUpdate(BaseDomain entity, string methodName)
+        protected async Task LogUpdate<T>(T entity, string methodName)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace Porter.Application.Services
             }
         }
 
-        protected async Task LogInsert(BaseDomain entity, string methodName)
+        protected async Task LogInsert<T>(T entity, string methodName)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Porter.Application.Services
             }
         }
 
-        protected async Task LogDelete(BaseDomain entity, string methodName)
+        protected async Task LogDelete<T>(T entity, string methodName)
         {
             try
             {

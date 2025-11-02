@@ -3,11 +3,11 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
+using Porter.Common.Utils;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
 using Porter.Dto;
 using System.Reflection;
-using static Porter.Domain.Log;
 
 namespace Porter.Application.Services
 {
@@ -169,6 +169,8 @@ namespace Porter.Application.Services
 
                 IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
 
+                await base.LogList(listToReturn, MethodBase.GetCurrentMethod().DeclaringType.Name);
+
                 return Result<IList<ResponseBookingDto>>.Success(listToReturn);
             }
             catch (Exception ex)
@@ -193,7 +195,8 @@ namespace Porter.Application.Services
                 if (booking is null)
                     return Result.Failure("400", "Reerva não encontrada");
 
-                
+                Booking bookingToLog = JsonUtils.DeepClone(booking);
+
                 // Verifica se ja existe outra reserva para a mesma sala e periodo que NAO seja a mesma reserva...
                 if (await _bookingRepository.GetBookingCountByRoomAndPeriod(booking.Room.Id, booking.Id, requestUpdateBookingDto.StartDate,
                     requestUpdateBookingDto.EndDate) == 0 )
@@ -205,6 +208,8 @@ namespace Porter.Application.Services
 
                     if (bookingRegistered > 0)
                     {
+                        await base.LogUpdate(bookingToLog, MethodBase.GetCurrentMethod().DeclaringType.Name);
+
                         booking = await _bookingRepository.GetById(requestUpdateBookingDto.Id);
 
                         var response = _dataMapper.Map<ResponseBookingDto>(booking);
