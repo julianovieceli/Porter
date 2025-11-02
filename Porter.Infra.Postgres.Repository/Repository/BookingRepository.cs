@@ -64,11 +64,49 @@ namespace Porter.Infra.Postgres.Repository.Repository
                 var total = await _context.Bookings.CountAsync(p => 
                 p.Room.Id == roomId
                 && 
+                (
                 ((p.StartDate >= startDate && p.StartDate <= endDate) 
                 ||
                 (p.EndDate >= startDate && p.EndDate <= endDate))
+                
+                ||
+                ((startDate  >= p.StartDate && startDate <= p.EndDate)
+                ||
+                (endDate >= p.StartDate && endDate <= p.EndDate)))
+
                 && (!p.DeletedDate.HasValue));
                 return total;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao consultar uma sala");
+                throw;
+            }
+        }
+
+
+        public async Task<IList<Booking>> GetBookingListByRoomAndPeriod(int roomId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+
+                var list = await _context.Bookings.Where(p =>
+                p.Room.Id == roomId
+               &&
+                (
+                ((p.StartDate >= startDate && p.StartDate <= endDate)
+                ||
+                (p.EndDate >= startDate && p.EndDate <= endDate))
+
+                ||
+                ((startDate >= p.StartDate && startDate <= p.EndDate)
+                ||
+                (endDate >= p.StartDate && endDate <= p.EndDate))))
+                .ToListAsync();
+
+
+                return list;
 
             }
             catch (Exception ex)

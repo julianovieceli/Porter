@@ -12,6 +12,6 @@
 
         Task<int> Delete(int Id);
 
-        //Task<List<Booking>> GetByRoomIdPerPeriod(int roomId, DateTime startDate, DateTime endDate);
+        Task<IList<Booking>> GetBookingListByRoomAndPeriod(int roomId, DateTime startDate, DateTime endDate);
     }
 }

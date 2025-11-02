@@ -72,5 +72,18 @@ namespace Porter.Api.Controllers
             }
             return Ok();
         }
+
+        [HttpGet("fetch-by-room-period")]
+        public async Task<IActionResult> GetBookingListByRoomAndPeriod([FromQuery] int roomId, DateTime startDate, DateTime endDate)
+        {
+            var result = await _bookingSrevice.GetBookingListByRoomAndPeriod(roomId, startDate, endDate);
+
+            if (result.IsFailure)
+            {
+                return base.CreateResponseFromResult(result);
+            }
+
+            return Ok(Result<IList<ResponseBookingDto>>.Success(((Result<IList<ResponseBookingDto>>)result).Response));
+        }
     }
 }

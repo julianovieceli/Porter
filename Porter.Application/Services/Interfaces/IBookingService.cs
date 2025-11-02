@@ -12,5 +12,7 @@ namespace Porter.Application.Services.Interfaces
         Task<Result> Register(RequestRegisterBookingDto bookingRequest);
 
         Task<Result> Delete(int Id);
+
+        Task<Result> GetBookingListByRoomAndPeriod(int roomId, DateTime startDate, DateTime endDate);
     }
 }

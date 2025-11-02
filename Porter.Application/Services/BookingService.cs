@@ -149,5 +149,21 @@ namespace Porter.Application.Services
                 return Result.Failure("666", e.Message);
             }
         }
+
+        public async Task<Result> GetBookingListByRoomAndPeriod(int roomId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var bookingList = await _bookingRepository.GetBookingListByRoomAndPeriod(roomId, startDate, endDate);
+
+                IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
+
+                return Result<IList<ResponseBookingDto>>.Success(listToReturn);
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure("666", "Erro ao consultar reservas");
+            }
+        }
     }
 }
