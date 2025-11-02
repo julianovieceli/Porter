@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddAutoMapper();
+builder.Services.AddValidators();
 builder.Services.ConfigurePostGresDbContext(builder.Configuration);
 
 var app = builder.Build();

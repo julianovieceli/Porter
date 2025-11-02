@@ -1,13 +1,49 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Porter.Domain.Validators;
+using System.Collections.Specialized;
 
 namespace Porter.Domain
 {
 
     public class Client : BaseDomain
     {
-        public string Docto { get; set; }
 
-        public string Name { get; set; }
+        private string _docto;
+        private string _name;
+
+        public string Docto {
+            get { return _docto; }
+            set
+            {
+                if (!DocumentValidator.IsCpfCnpjValid(value))
+                    throw new Exception("Documento inválido!");
+
+                _docto = value;
+            }
+        }
+
+        public string Name {
+
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (!NameValidator.IsValidName(value))
+                    throw new Exception("Nome inválido!");
+
+                _name = value;
+            }
+        }
         public DateTime CreateTime { get; set; }
+
+
+        public Client(string name, string docto)
+        {
+            Name = name;
+            Docto = docto;
+            CreateTime = DateTime.UtcNow;
+
+        }
     }
 }

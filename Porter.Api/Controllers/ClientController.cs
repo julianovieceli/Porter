@@ -33,5 +33,39 @@ namespace Porter.Api.Controllers
 
             return Ok(Result<IList<ResponseClientDto>>.Success(((Result<IList<ResponseClientDto>>)result).Value));
         }
+
+
+        [HttpGet()]
+        public async Task<IActionResult> Get(string? docto)
+        {
+            var result = await _clientService.GetByDocto(docto);
+
+            if (result.IsFailure)
+            {
+                ErrorResponseDto error = new ErrorResponseDto(result.ErrorCode, result.ErrorMessage);
+
+                if(result.ErrorCode == "404")
+                    return NotFound(error);
+
+                return BadRequest(error);
+            }
+
+            return Ok(Result<IList<ResponseClientDto>>.Success(((Result<IList<ResponseClientDto>>)result).Value));
+        }
+
+
+        [HttpPost(Name = "PostClient")]
+        public async Task<IActionResult> RegisterClient(RequestRegisterClientDto registerClient)
+        {
+            
+            var result = await _clientService.Register(registerClient);
+
+            if (result.IsFailure)
+            {
+                ErrorResponseDto error = new ErrorResponseDto(result.ErrorCode, result.ErrorMessage);
+                return BadRequest(error);
+            }
+            return StatusCode(StatusCodes.Status201Created);
+        }
     }
 }

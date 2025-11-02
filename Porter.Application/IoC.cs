@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Porter.Application.Mapping;
 using Porter.Application.Services;
 using Porter.Application.Services.Interfaces;
+using Porter.Application.Validators;
+using Porter.Dto;
 
 namespace Porter.Application
 {
@@ -29,5 +32,11 @@ namespace Porter.Application
 
             return services;
         }
+
+        public static IServiceCollection AddValidators(this IServiceCollection services)
+        {
+            return services.AddScoped<IValidator<RequestRegisterClientDto>, RequestRegisterClientDtoValidator>();
+        }
+
     }
 }

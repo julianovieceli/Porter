@@ -24,6 +24,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
             {
                 var clients = await _context.Clients.ToListAsync();
 
+                
                 _logger.LogInformation($"Returned {clients.Count} clients.");
 
 
@@ -36,6 +37,62 @@ namespace Porter.Infra.Postgres.Repository.Repository
                 throw;
             }
         }
-      
+
+        public async Task<Client?> GetByDocto(string docto)
+        {
+            try
+            {
+
+                var client = await _context.Clients.FirstOrDefaultAsync(p => p.Docto == docto);
+
+                
+                return client;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao consultar um Cliente");
+                throw;
+            }
+        }
+
+        public async Task<int> GetCountByDocto(string docto)
+        {
+            try
+            {
+
+                var total = await _context.Clients.CountAsync(p => p.Docto == docto);
+                return total;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao consultar um Cliente");
+                throw;
+            }
+        }
+
+        public async Task<int> Register(Client client)
+        {
+            try
+            {
+                _context.Clients.Add(client);
+                int clientId = await _context.SaveChangesAsync();
+
+                if (clientId > 0)
+                    _logger.LogInformation($"Client {clientId} success saved!");
+                else
+                    _logger.LogInformation($"Erro ao cadastrar um cliente!");
+
+
+                return clientId;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions as needed
+                _logger.LogError(ex, "An error occurred while saving client.");
+                throw;
+            }
+        }
+
     }
 }

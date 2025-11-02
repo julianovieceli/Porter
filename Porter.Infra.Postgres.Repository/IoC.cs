@@ -17,7 +17,7 @@ namespace Porter.Infra.Postgres.Repository
                 options.UseNpgsql(connectionString,
                     npgsqlOptions =>
                     {
-                        npgsqlOptions.EnableRetryOnFailure(maxRetryCount: 2);
+                        //npgsqlOptions.EnableRetryOnFailure(maxRetryCount: 2);
                     });
             });
 
