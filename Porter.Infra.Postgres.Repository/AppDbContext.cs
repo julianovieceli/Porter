@@ -6,7 +6,7 @@ namespace Porter.Infra.Postgres.Repository
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<UserPorter> Users { get; set; } = default!;
+        public DbSet<Client> Clients { get; set; } = default!;
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
@@ -14,17 +14,17 @@ namespace Porter.Infra.Postgres.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserPorterConfiguration());
+            modelBuilder.ApplyConfiguration(new ClientConfiguration());
         }
 
      
     }
 
-    public class UserPorterConfiguration : IEntityTypeConfiguration<UserPorter>
+    public class ClientConfiguration : IEntityTypeConfiguration<Client>
     {
-        public void Configure(EntityTypeBuilder<UserPorter> builder)
+        public void Configure(EntityTypeBuilder<Client> builder)
         {
-            builder.ToTable("userporter");
+            builder.ToTable("client");
             builder.Property(e => e.Id)
                 .HasColumnName("id");
 

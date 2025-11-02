@@ -3,7 +3,7 @@
 namespace Porter.Domain
 {
 
-    public class UserPorter: BaseDomain
+    public class Client : BaseDomain
     {
         public string Docto { get; set; }
 

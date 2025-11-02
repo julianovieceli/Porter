@@ -2,7 +2,7 @@
 
 namespace Porter.Application.Services.Interfaces
 {
-    public interface IUserPorterService
+    public interface IClientService
     {
         Task<Result> GetAll();
     }

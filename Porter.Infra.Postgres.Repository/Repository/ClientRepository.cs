@@ -5,34 +5,34 @@ using Porter.Domain.Interfaces;
 
 namespace Porter.Infra.Postgres.Repository.Repository
 {
-    public class UserPorterRepository: IUserPorterRepository
+    public class ClientRepository : IClientRepository
     {
 
         private readonly AppDbContext _context;
-        private readonly ILogger<UserPorterRepository> _logger;
+        private readonly ILogger<ClientRepository> _logger;
 
         // The AppDbContext is injected here
-        public UserPorterRepository(AppDbContext context, ILogger<UserPorterRepository> logger)
+        public ClientRepository(AppDbContext context, ILogger<ClientRepository> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public async Task<List<UserPorter>> GetAll()
+        public async Task<List<Client>> GetAll()
         {
             try
             {
-                var users = await _context.Users.ToListAsync();
+                var clients = await _context.Clients.ToListAsync();
 
-                _logger.LogInformation($"Returned {users.Count} users.");
+                _logger.LogInformation($"Returned {clients.Count} clients.");
 
 
-                return users;
+                return clients;
             }
             catch (Exception ex)
             {
                 // Handle exceptions as needed
-                _logger.LogError(ex, "An error occurred while retrieving users.");
+                _logger.LogError(ex, "An error occurred while retrieving clients.");
                 throw;
             }
         }

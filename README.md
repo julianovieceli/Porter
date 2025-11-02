@@ -6,11 +6,12 @@
     # Criando banco de dados e tabelas
 CREATE database PorterDb ;
 
+
 -- drop TABLE Reservation;
 -- drop TABLE Room;
--- drop table UserPorter;
+-- drop table Client;
 
-CREATE TABLE IF NOT EXISTS UserPorter
+CREATE TABLE IF NOT EXISTS Client
 (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         docto  VARCHAR(11) NOT NULL UNIQUE,
@@ -33,11 +34,12 @@ CREATE TABLE IF NOT EXISTS  Reservation
     roomId int,
     CONSTRAINT fk_roomId FOREIGN KEY (roomid) REFERENCES Room (id),
     reservedById int,
-     CONSTRAINT fk_userPorterId FOREIGN KEY (reservedById) REFERENCES UserPorter (id),
+     CONSTRAINT fk_ClientId FOREIGN KEY (reservedById) REFERENCES Client (id),
      startDate TIMESTAMP,
      endDate TIMESTAMP,
     createTime TIMESTAMP
 );
+
 
 
 

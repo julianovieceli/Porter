@@ -1,6 +1,6 @@
 ﻿namespace Porter.Dto
 {
-    public class ResponseUserPorterDto
+    public class ResponseClientDto
     {
         public int Id { get; set; }
 

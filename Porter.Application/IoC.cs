@@ -11,7 +11,7 @@ namespace Porter.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
 
-            return services.AddScoped<IUserPorterService, UserPorterService>();
+            return services.AddScoped<IClientService, ClientService>();
 
         }
 
@@ -21,7 +21,7 @@ namespace Porter.Application
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<UserPorterProfile>();
+                cfg.AddProfile<ClientProfile>();
             });
 
             IMapper mapper = config.CreateMapper();

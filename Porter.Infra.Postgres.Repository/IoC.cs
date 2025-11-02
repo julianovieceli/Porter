@@ -21,7 +21,7 @@ namespace Porter.Infra.Postgres.Repository
                     });
             });
 
-            return services.AddScoped<IUserPorterRepository, UserPorterRepository>();
+            return services.AddScoped<IClientRepository, ClientRepository>();
         }
 
     }
