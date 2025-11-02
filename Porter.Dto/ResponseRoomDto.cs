@@ -1,11 +1,10 @@
 ﻿namespace Porter.Dto
 {
-    public class ResponseClientDto
+    public class ResponseRoomDto
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public string Docto { get; set; }
 
         public DateTime CreateTime { get; set; }
 

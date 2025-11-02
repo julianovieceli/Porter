@@ -13,7 +13,8 @@ namespace Porter.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-
+            
+                services.AddScoped<IRoomService, RoomService>();
             return services.AddScoped<IClientService, ClientService>();
 
         }
@@ -25,6 +26,7 @@ namespace Porter.Application
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<ClientProfile>();
+                cfg.AddProfile<RoomProfile>();
             });
 
             IMapper mapper = config.CreateMapper();
@@ -35,6 +37,7 @@ namespace Porter.Application
 
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
+            services.AddScoped<IValidator<RequestRegisterRoomDto>, RequestRegisterRoomDtoValidator>();
             return services.AddScoped<IValidator<RequestRegisterClientDto>, RequestRegisterClientDtoValidator>();
         }
 

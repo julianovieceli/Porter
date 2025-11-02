@@ -1,7 +1,33 @@
-﻿namespace Porter.Domain
+﻿using Porter.Domain.Validators;
+using System.Xml.Linq;
+
+namespace Porter.Domain
 {
     public class Room: BaseDomain
     {
-        public string Name { get; set; }
+        private string _name;
+
+        public string Name
+        {
+
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (!NameValidator.IsValidName(value))
+                    throw new Exception("Nome inválido!");
+
+                _name = value;
+            }
+        }
+
+
+        public Room(string name)
+        {
+            _name = name;
+            CreateTime = DateTime.UtcNow;
+        }
     }
 }

@@ -8,11 +8,7 @@ namespace Porter.Application.Mapping
     {
         public ClientProfile()
         {
-            //CreateMap<UserPorter, ResponseUserPorterDto>()
-            //.ForMember(to => to.Id, opt => opt.MapFrom(from => from.Id))
-            //.ForMember(to => to.Login, opt => opt.MapFrom(from => from.Login))
-            //ReverseMap();
-
+            
             CreateMap<Client, ResponseClientDto>().ReverseMap();
             CreateMap<Client, RequestRegisterClientDto>().ReverseMap();
 

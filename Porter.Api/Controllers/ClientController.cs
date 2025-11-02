@@ -7,15 +7,13 @@ namespace Porter.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ClientController : ControllerBase
+    public class ClientController : CustomBaseController
     {
 
         private readonly IClientService _clientService;
-        private readonly ILogger<ClientController> _logger;
-
-        public ClientController(ILogger<ClientController> logger, IClientService clientService)
+        
+        public ClientController(ILogger<ClientController> logger, IClientService clientService) :base(logger)
         {
-            _logger = logger;
             _clientService = clientService;
         }
 
@@ -26,9 +24,7 @@ namespace Porter.Api.Controllers
 
             if (result.IsFailure)
             {
-                ErrorResponseDto error = new ErrorResponseDto(result.ErrorCode, result.ErrorMessage);
-
-                return BadRequest(error);
+                return base.CreateResponseFromResult(result);
             }
 
             return Ok(Result<IList<ResponseClientDto>>.Success(((Result<IList<ResponseClientDto>>)result).Response));
@@ -42,12 +38,7 @@ namespace Porter.Api.Controllers
 
             if (result.IsFailure)
             {
-                ErrorResponseDto error = new ErrorResponseDto(result.ErrorCode, result.ErrorMessage);
-
-                if(result.ErrorCode == "404")
-                    return NotFound(error);
-
-                return BadRequest(error);
+                return base.CreateResponseFromResult(result);
             }
 
             return Ok(Result<ResponseClientDto>.Success(((Result<ResponseClientDto>)result).Response));
@@ -62,8 +53,8 @@ namespace Porter.Api.Controllers
 
             if (result.IsFailure)
             {
-                ErrorResponseDto error = new ErrorResponseDto(result.ErrorCode, result.ErrorMessage);
-                return BadRequest(error);
+                return base.CreateResponseFromResult(result);
+
             }
             return StatusCode(StatusCodes.Status201Created, ((Result<ResponseClientDto>)result).Response);
         }

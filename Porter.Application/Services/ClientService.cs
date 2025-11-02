@@ -49,13 +49,13 @@ namespace Porter.Application.Services
             {
                 ArgumentNullException.ThrowIfNullOrWhiteSpace(docto, "docto");
 
-                if (DocumentValidator.IsCpfCnpjValid(docto) == false)
+                if (!DocumentValidator.IsCpfCnpjValid(docto))
                     return Result.Failure("400", "Documento inválido");
 
                 var client = await _clientRepository.GetByDocto(docto);
 
                 if (client is null)
-                    return Result.Failure("400", "Cliente não encontrado"); //erro nao encontrado
+                    return Result.Failure("404", "Cliente não encontrado"); //erro nao encontrado
                 else
                 {
                     var clientDto = _dataMapper.Map<ResponseClientDto>(client);

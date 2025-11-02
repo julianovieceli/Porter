@@ -17,6 +17,7 @@ namespace Porter.Infra.Postgres.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
+            modelBuilder.ApplyConfiguration(new RoomConfiguration());
         }
 
      
@@ -34,6 +35,24 @@ namespace Porter.Infra.Postgres.Repository
             builder.Property(e => e.Docto)
                 .HasColumnName("docto");
             
+            builder.Property(e => e.Name)
+                .HasColumnName("name");
+
+
+            builder.Property(e => e.CreateTime)
+                .HasColumnName("createtime");
+        }
+    }
+
+    public class RoomConfiguration : IEntityTypeConfiguration<Room>
+    {
+        public void Configure(EntityTypeBuilder<Room> builder)
+        {
+            builder.ToTable("room");
+            builder.Property(e => e.Id)
+                .HasColumnName("id");
+
+
             builder.Property(e => e.Name)
                 .HasColumnName("name");
 
