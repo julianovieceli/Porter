@@ -34,9 +34,26 @@ namespace Porter.Application.Validators
 
 
             RuleFor(booking => booking.RoomName).NotNull().NotEmpty().WithMessage("Sala obrigatória.");
+        }
+    }
 
+    public class RequestUpdateBookingDtoValidator : AbstractValidator<RequestUpdateBookingDto>
+    {
+        public RequestUpdateBookingDtoValidator()
+        {
+            
+            RuleFor(booking => booking.StartDate).NotNull().NotEmpty().
+              Custom(
+                  (startdate, context) =>
+                  {
+                      if (startdate < DateTime.UtcNow)
+                          context.AddFailure("Data de início deve ser maior ou igual a data atual!.");
+                  });
 
-
+            RuleFor(x => x)
+            .Must(x => x.EndDate > x.StartDate)
+            .WithMessage("Data de início deve ser menor que a data de fim!")
+            .When(x => x.StartDate != default && x.EndDate != default); // Apply only if both dates are provided
         }
     }
 }

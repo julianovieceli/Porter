@@ -16,11 +16,12 @@ namespace Porter.Application.Services
         private readonly IClientRepository _clientRepository;
         private ILogger<BookingService> _logger;
         private readonly IValidator<RequestRegisterBookingDto> _bookingValidator;
+        private readonly IValidator<RequestUpdateBookingDto> _bookingUpdateValidator;
         private readonly IMapper _dataMapper;
 
         public BookingService(ILogger<BookingService> logger, IMapper dataMapper, IBookingRepository bookingRepository,
             IRoomRepository roomRepository, IClientRepository clientRepository,
-            IValidator<RequestRegisterBookingDto> bookingValidator)
+            IValidator<RequestRegisterBookingDto> bookingValidator, IValidator<RequestUpdateBookingDto> bookingUpdateValidator)
         {
             _logger = logger;
             _bookingRepository = bookingRepository;
@@ -28,6 +29,7 @@ namespace Porter.Application.Services
             _clientRepository = clientRepository;
             _dataMapper = dataMapper;
             _bookingValidator = bookingValidator;
+            _bookingUpdateValidator = bookingUpdateValidator;
         }
 
 
@@ -101,7 +103,7 @@ namespace Porter.Application.Services
                     return Result.Failure("400", "Cliente não encontrado");
 
 
-                if (await _bookingRepository.GetBookingCountByRoomAndPeriod(room.Id, requestRegisterBookingDto.StartDate,
+                if (await _bookingRepository.GetBookingCountByRoomAndPeriod(room.Id, null, requestRegisterBookingDto.StartDate,
                     requestRegisterBookingDto.EndDate) == 0)
                 {
 
@@ -165,5 +167,53 @@ namespace Porter.Application.Services
                 return Result.Failure("666", "Erro ao consultar reservas");
             }
         }
+
+        public async Task<Result> Update(RequestUpdateBookingDto requestUpdateBookingDto)
+        {
+            try
+            {
+                ArgumentNullException.ThrowIfNull(requestUpdateBookingDto, "requestUpdateBookingDto");
+
+                var validatorResult = _bookingUpdateValidator.Validate(requestUpdateBookingDto);
+                if (!validatorResult.IsValid)
+                {
+                    return Result.Failure("400", validatorResult.Errors.FirstOrDefault().ErrorMessage);//Erro q usuario ja existe com este documento.
+                }
+
+                var booking = await _bookingRepository.GetById(requestUpdateBookingDto.Id);
+                if (booking is null)
+                    return Result.Failure("400", "Reerva não encontrada");
+
+                
+                // Verifica se ja existe outra reserva para a mesma sala e periodo que NAO seja a mesma reserva...
+                if (await _bookingRepository.GetBookingCountByRoomAndPeriod(booking.Room.Id, booking.Id, requestUpdateBookingDto.StartDate,
+                    requestUpdateBookingDto.EndDate) == 0 )
+                {
+                    booking.Update(requestUpdateBookingDto.StartDate, requestUpdateBookingDto.EndDate,
+                        requestUpdateBookingDto.Obs);
+
+                    int bookingRegistered = await _bookingRepository.Update(booking);
+
+                    if (bookingRegistered > 0)
+                    {
+                        booking = await _bookingRepository.GetById(requestUpdateBookingDto.Id);
+
+                        var response = _dataMapper.Map<ResponseBookingDto>(booking);
+                        return Result<ResponseBookingDto>.Success(response);
+                    }
+                    else
+                        return Result.Failure("666", "Erro ao atualizar uma reserva");
+
+                }
+                else
+                    return Result.Failure("400", "Ja existe reserva para esta sala neste período");
+            }
+            catch (Exception e)
+            {
+                return Result.Failure("666", e.Message);
+            }
+        }
+
+
     }
 }

@@ -13,6 +13,8 @@ namespace Porter.Application.Services.Interfaces
 
         Task<Result> Delete(int Id);
 
+        Task<Result> Update(RequestUpdateBookingDto requestUpdateBookingDto);
+
         Task<Result> GetBookingListByRoomAndPeriod(int roomId, DateTime startDate, DateTime endDate);
     }
 }

@@ -85,5 +85,19 @@ namespace Porter.Api.Controllers
 
             return Ok(Result<IList<ResponseBookingDto>>.Success(((Result<IList<ResponseBookingDto>>)result).Response));
         }
+
+        [HttpPut(Name = "UpdateBooking")]
+        public async Task<IActionResult> Update(RequestUpdateBookingDto requestUpdateBookingDto)
+        {
+
+            var result = await _bookingSrevice.Update(requestUpdateBookingDto);
+
+            if (result.IsFailure)
+            {
+                return base.CreateResponseFromResult(result);
+
+            }
+            return StatusCode(StatusCodes.Status200OK, ((Result<ResponseBookingDto>)result).Response);
+        }
     }
 }

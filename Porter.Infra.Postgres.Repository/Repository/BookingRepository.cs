@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Logging;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
+using System.Linq.Expressions;
+using Porter.Common.Utils.ExtensionMethods;
+
 
 namespace Porter.Infra.Postgres.Repository.Repository
 {
@@ -56,7 +59,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
             }
         }
 
-        public async Task<int> GetBookingCountByRoomAndPeriod(int roomId, DateTime startDate, DateTime endDate)
+        public async Task<int> GetBookingCountByRoomAndPeriod(int roomId, int? bookingId, DateTime startDate, DateTime endDate)
         {
             try
             {
@@ -64,20 +67,26 @@ namespace Porter.Infra.Postgres.Repository.Repository
                 endDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
 
 
-                var total = await _context.Bookings.CountAsync(p => 
+                Expression<Func<Booking, bool>> predicate = (p =>
                 p.Room.Id == roomId
-                && 
+                &&
                 (
-                ((p.StartDate >= startDate && p.StartDate <= endDate) 
+                ((p.StartDate >= startDate && p.StartDate <= endDate)
                 ||
                 (p.EndDate >= startDate && p.EndDate <= endDate))
-                
+
                 ||
-                ((startDate  >= p.StartDate && startDate <= p.EndDate)
+                ((startDate >= p.StartDate && startDate <= p.EndDate)
                 ||
                 (endDate >= p.StartDate && endDate <= p.EndDate)))
 
                 && (!p.DeletedDate.HasValue));
+
+                if(bookingId.HasValue)
+                    predicate = predicate.AndAlso(p => p.Id != bookingId.Value);
+
+                var total = await _context.Bookings.CountAsync(predicate);
+
                 return total;
 
             }
@@ -105,7 +114,8 @@ namespace Porter.Infra.Postgres.Repository.Repository
                 ||
                 ((startDate >= p.StartDate && startDate <= p.EndDate)
                 ||
-                (endDate >= p.StartDate && endDate <= p.EndDate))))
+                (endDate >= p.StartDate && endDate <= p.EndDate)))
+                && (!p.DeletedDate.HasValue))
                 .ToListAsync();
 
 
@@ -158,6 +168,41 @@ namespace Porter.Infra.Postgres.Repository.Repository
                     _logger.LogInformation($"Reserva {Id} excluida com sucesso!");
                 else
                     _logger.LogInformation($"Reserva {Id} não encontrada!");
+
+                return updatedRows;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions as needed
+                _logger.LogError(ex, "Erro ao excluir uma reserva.");
+                throw;
+            }
+        }
+
+
+        public async Task<int> Update(Booking bookingToUpdate)
+        {
+            try
+            {
+                //_context.Bookings.Update(bookingToUpdate);
+
+                //int updatedRows = await _context.SaveChangesAsync();
+
+
+                var updatedRows = await _context.Bookings.Where(e => e.Id == bookingToUpdate.Id && !e.DeletedDate.HasValue)
+                    .ExecuteUpdateAsync(setters =>
+                     setters.SetProperty(e => e.StartDate, bookingToUpdate.StartDate)
+                    .SetProperty(e => e.EndDate, bookingToUpdate.EndDate)
+                    .SetProperty(e => e.Obs, bookingToUpdate.Obs)
+                    //.SetProperty(e => e.ReservedBy, bookingToUpdate.ReservedBy)
+                    //.SetProperty(e => e.ReservedById, bookingToUpdate.ReservedById)
+                    );
+
+
+                if (updatedRows > 0)
+                    _logger.LogInformation($"Reserva {bookingToUpdate.Id} atualizada com sucesso!");
+                else
+                    _logger.LogInformation($"Reserva {bookingToUpdate.Id} não encontrada!");
 
                 return updatedRows;
             }

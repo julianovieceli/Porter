@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
 
+        public string DoctoReservedBy { get; set; }
         public string ReservedBy { get; set; }
 
         public string Room { get; set; }

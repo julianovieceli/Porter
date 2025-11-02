@@ -39,6 +39,8 @@ namespace Porter.Application
 
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
+
+            services.AddScoped < IValidator<RequestUpdateBookingDto>, RequestUpdateBookingDtoValidator>();
             services.AddScoped<IValidator<RequestRegisterBookingDto>, RequestRegisterBookingDtoValidator>();
             
             services.AddScoped<IValidator<RequestRegisterRoomDto>, RequestRegisterRoomDtoValidator>();

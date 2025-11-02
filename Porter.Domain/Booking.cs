@@ -43,6 +43,20 @@
             CreateTime = DateTime.UtcNow;
         }
 
+        public void Update(DateTime startDate, DateTime endDate, string obs)
+        {
+            if (startDate >= endDate)
+                throw new Exception("Data de início deve ser menor que a data de fim!");
+
+            if (startDate < DateTime.UtcNow)
+                throw new Exception("Data de início deve ser maior ou igual a data atual!");
+
+
+            StartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
+            EndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc); ;
+            Obs = obs;
+        }
+
         public void Detete()
         {
             if(this.DeletedDate.HasValue)
