@@ -94,8 +94,13 @@ namespace Porter.Application.Services
 
                     Client client = new Client(clientRequest.Name, clientRequest.Docto);
 
-                    if (await _clientRepository.Register(client) > 0)
-                        return Result.Success;
+                    int clientRegistered = await _clientRepository.Register(client);
+
+                    if (clientRegistered > 0)
+                    {
+                        var response = _dataMapper.Map<ResponseClientDto>(client);
+                        return Result<ResponseClientDto>.Success(response);
+                    }
                     else
                         return Result.Failure("666", "Erro ao cadastrar um cliente");
 

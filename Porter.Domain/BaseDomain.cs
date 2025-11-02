@@ -6,5 +6,8 @@ namespace Porter.Domain
     {
         [Key]
         public int Id { get; set; }
+
+
+        public DateTime CreateTime { get; set; }
     }
 }

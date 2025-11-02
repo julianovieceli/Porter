@@ -1,5 +1,4 @@
 ﻿using Porter.Domain.Validators;
-using System.Collections.Specialized;
 
 namespace Porter.Domain
 {
@@ -35,7 +34,6 @@ namespace Porter.Domain
                 _name = value;
             }
         }
-        public DateTime CreateTime { get; set; }
 
 
         public Client(string name, string docto)

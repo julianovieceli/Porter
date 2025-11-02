@@ -31,7 +31,7 @@ namespace Porter.Api.Controllers
                 return BadRequest(error);
             }
 
-            return Ok(Result<IList<ResponseClientDto>>.Success(((Result<IList<ResponseClientDto>>)result).Value));
+            return Ok(Result<IList<ResponseClientDto>>.Success(((Result<IList<ResponseClientDto>>)result).Response));
         }
 
 
@@ -50,7 +50,7 @@ namespace Porter.Api.Controllers
                 return BadRequest(error);
             }
 
-            return Ok(Result<IList<ResponseClientDto>>.Success(((Result<IList<ResponseClientDto>>)result).Value));
+            return Ok(Result<ResponseClientDto>.Success(((Result<ResponseClientDto>)result).Response));
         }
 
 
@@ -65,7 +65,7 @@ namespace Porter.Api.Controllers
                 ErrorResponseDto error = new ErrorResponseDto(result.ErrorCode, result.ErrorMessage);
                 return BadRequest(error);
             }
-            return StatusCode(StatusCodes.Status201Created);
+            return StatusCode(StatusCodes.Status201Created, ((Result<ResponseClientDto>)result).Response);
         }
     }
 }

@@ -35,14 +35,14 @@ public class Result
 
 public class Result<T> : Result
 {
-    public T Value { get; set; }
+    public T Response { get; set; }
 
-    protected Result(T value)
+    protected Result(T response)
     {
-        this.Value = value;
+        this.Response = response;
     }
 
-    public static Result<T> Success(T value) => new(value);
+    public static new Result<T> Success(T response) => new(response);
 }
 
 

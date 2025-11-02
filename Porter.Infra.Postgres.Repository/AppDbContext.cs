@@ -7,6 +7,8 @@ namespace Porter.Infra.Postgres.Repository
     public class AppDbContext : DbContext
     {
         public DbSet<Client> Clients { get; set; } = default!;
+
+        public DbSet<Room> Rooms { get; set; } = default!;
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {

@@ -33,7 +33,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
             catch (Exception ex)
             {
                 // Handle exceptions as needed
-                _logger.LogError(ex, "An error occurred while retrieving clients.");
+                _logger.LogError(ex, "Erro ao retornar clientes.");
                 throw;
             }
         }
@@ -79,12 +79,12 @@ namespace Porter.Infra.Postgres.Repository.Repository
                 int clientId = await _context.SaveChangesAsync();
 
                 if (clientId > 0)
-                    _logger.LogInformation($"Client {clientId} success saved!");
+                    _logger.LogInformation($"Client {client.Id} success saved!");
                 else
                     _logger.LogInformation($"Erro ao cadastrar um cliente!");
 
 
-                return clientId;
+                return client.Id;
             }
             catch (Exception ex)
             {
