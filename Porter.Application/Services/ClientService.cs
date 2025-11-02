@@ -10,19 +10,16 @@ using Porter.Dto;
 
 namespace Porter.Application.Services
 {
-    public class ClientService : IClientService
+    public class ClientService : BaseService, IClientService
     {
         private readonly IClientRepository _clientRepository;
-        private ILogger<ClientService> _logger;
         private readonly IValidator<RequestRegisterClientDto> _clientValidator;
-        private readonly IMapper _dataMapper;
-
+        
         public ClientService(ILogger<ClientService> logger, IMapper dataMapper, IClientRepository clientRepository,
-            IValidator<RequestRegisterClientDto> clientValidator)
+            IValidator<RequestRegisterClientDto> clientValidator, ILogRepository logRepository)
+            : base(logger, dataMapper, logRepository)
         {
-            _logger = logger;
             _clientRepository = clientRepository;
-            _dataMapper = dataMapper;
             _clientValidator = clientValidator;
         }
 

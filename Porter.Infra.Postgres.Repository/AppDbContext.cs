@@ -11,6 +11,8 @@ namespace Porter.Infra.Postgres.Repository
 
         public DbSet<Room> Rooms { get; set; } = default!;
 
+        public DbSet<Log> Logs { get; set; } = default!;
+
         public DbSet<Booking> Bookings { get; set; } = default!;
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -22,6 +24,7 @@ namespace Porter.Infra.Postgres.Repository
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new BookingConfiguration());
+            modelBuilder.ApplyConfiguration(new LogConfiguration());
         }
 
      
@@ -119,6 +122,35 @@ namespace Porter.Infra.Postgres.Repository
                 .HasForeignKey(b => b.ReservedById);
 
 
+        }
+    }
+
+    public class LogConfiguration : IEntityTypeConfiguration<Log>
+    {
+        public void Configure(EntityTypeBuilder<Log> builder)
+        {
+            builder.ToTable("log");
+            builder.Property(e => e.Id)
+                .HasColumnName("id");
+
+
+            builder.Property(e => e.Action)
+                .HasColumnName("action");
+
+            builder.Property(e => e.Data)
+                .HasColumnName("data");
+
+            builder.Property(e => e.MethodName)
+                .HasColumnName("methodname");
+
+            builder.Property(e => e.EntityType)
+                .HasColumnName("entitytype");
+
+
+            builder.Property(e => e.CreateTime)
+                .HasColumnName("createtime");
+
+     
         }
     }
 }

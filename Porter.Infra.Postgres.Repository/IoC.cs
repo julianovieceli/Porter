@@ -24,7 +24,7 @@ namespace Porter.Infra.Postgres.Repository
                     })
                 .UseLazyLoadingProxies();
             });
-
+            services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             return services.AddScoped<IClientRepository, ClientRepository>();

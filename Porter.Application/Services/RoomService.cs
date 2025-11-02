@@ -10,19 +10,15 @@ using Porter.Dto;
 
 namespace Porter.Application.Services
 {
-    public class RoomService : IRoomService
+    public class RoomService : BaseService, IRoomService
     {
         private readonly IRoomRepository _roomRepository;
-        private ILogger<RoomService> _logger;
         private readonly IValidator<RequestRegisterRoomDto> _roomValidator;
-        private readonly IMapper _dataMapper;
-
+        
         public RoomService(ILogger<RoomService> logger, IMapper dataMapper, IRoomRepository roomRepository,
-            IValidator<RequestRegisterRoomDto> roomValidator)
+            IValidator<RequestRegisterRoomDto> roomValidator, ILogRepository logRepository) : base(logger, dataMapper, logRepository)
         {
-            _logger = logger;
             _roomRepository = roomRepository;
-            _dataMapper = dataMapper;
             _roomValidator = roomValidator;
         }
 
