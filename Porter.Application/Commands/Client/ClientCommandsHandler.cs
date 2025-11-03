@@ -10,12 +10,12 @@ using Porter.Dto;
 
 namespace Porter.Application.Queries.Client
 {
-    public class ClientCommandsHandlerService : BaseService, IRequestHandler<RegisterClientCommand, Result>
+    public class ClientCommandsHandler : BaseService, IRequestHandler<RegisterClientCommand, Result>
     {
         private readonly IClientRepository _clientRepository;
         private readonly IValidator<RegisterClientCommand> _clientValidator;
         
-        public ClientCommandsHandlerService(ILogger<ClientCommandsHandlerService> logger, IMapper dataMapper, IClientRepository clientRepository,
+        public ClientCommandsHandler(ILogger<ClientCommandsHandler> logger, IMapper dataMapper, IClientRepository clientRepository,
             IValidator<RegisterClientCommand> clientValidator)
             : base(logger, dataMapper)
         {

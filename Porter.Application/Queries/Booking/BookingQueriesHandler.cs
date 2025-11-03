@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Porter.Application.Queries.Booking;
 using Porter.Common;
 using Porter.Common.Services;
+using Porter.Domain;
 using Porter.Domain.Interfaces;
 using Porter.Dto;
 using System.Reflection;
@@ -85,6 +86,37 @@ namespace Porter.Application.Services.Booking
             {
                 _logger.LogError(ex, "Erro ao consultar uma reserva");
                 return Result.Failure("666", "Erro ao consultar uma reserva");
+            }
+        }
+    }
+
+    public class GetBookingListByRoomAndPeriodQueryHandler : BaseService, IRequestHandler<GetBookingListByRoomAndPeriodQuery, Result>
+    {
+        private readonly IBookingRepository _bookingRepository;
+
+
+        public GetBookingListByRoomAndPeriodQueryHandler(ILogger<GetBookingListByRoomAndPeriodQueryHandler> logger, IMapper dataMapper, IBookingRepository bookingRepository,
+            ILogService logService)
+            : base(logger, dataMapper, logService)
+        {
+            _bookingRepository = bookingRepository;
+        }
+
+        public async Task<Result> Handle(GetBookingListByRoomAndPeriodQuery request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var bookingList = await _bookingRepository.GetBookingListByRoomAndPeriod(request.RoomId, request.StartDate, request.EndDate);
+
+                IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
+
+                await base._logService.LogList(listToReturn, MethodBase.GetCurrentMethod().DeclaringType.Name);
+
+                return Result<IList<ResponseBookingDto>>.Success(listToReturn);
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure("666", "Erro ao consultar reservas");
             }
         }
     }

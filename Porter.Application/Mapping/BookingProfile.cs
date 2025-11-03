@@ -9,7 +9,6 @@ namespace Porter.Application.Mapping
         public BookingProfile()
         {
             
-            CreateMap<Booking, RequestRegisterBookingDto>().ReverseMap();
 
             CreateMap<Booking, ResponseBookingDto>()
                 .ForMember(to => to.Room, opt => opt.MapFrom(from => from.Room.Name))

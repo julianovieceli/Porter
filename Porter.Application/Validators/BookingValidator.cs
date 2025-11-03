@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
+using Porter.Application.Commands.Booking;
 using Porter.Domain.Validators;
-using Porter.Dto;
 
 namespace Porter.Application.Validators
 {
-    public class RequestRegisterBookingDtoValidator : AbstractValidator<RequestRegisterBookingDto>
+    public class RequestRegisterBookingValidator : AbstractValidator<RegisterBookingCommand>
     {
-        public RequestRegisterBookingDtoValidator()
+        public RequestRegisterBookingValidator()
         {
             RuleFor(booking => booking.DoctoReservedBy).NotNull().NotEmpty().
                Custom(
@@ -37,9 +37,9 @@ namespace Porter.Application.Validators
         }
     }
 
-    public class RequestUpdateBookingDtoValidator : AbstractValidator<RequestUpdateBookingDto>
+    public class RequestUpdateBookingValidator : AbstractValidator<UpdateBookingCommand>
     {
-        public RequestUpdateBookingDtoValidator()
+        public RequestUpdateBookingValidator()
         {
             
             RuleFor(booking => booking.StartDate).NotNull().NotEmpty().

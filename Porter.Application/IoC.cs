@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Porter.Application.Commands.Booking;
 using Porter.Application.Commands.Client;
 using Porter.Application.Mapping;
 using Porter.Application.Services;
 using Porter.Application.Services.Interfaces;
 using Porter.Application.Validators;
 using Porter.Dto;
-using System;
 
 namespace Porter.Application
 {
@@ -15,10 +15,7 @@ namespace Porter.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-
-            services.AddScoped<IBookingService, BookingService>();
             return services.AddScoped<IRoomService, RoomService>();
-            // return services.AddScoped<IClientService, ClientService>();
 
         }
 
@@ -42,8 +39,9 @@ namespace Porter.Application
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
 
-            services.AddScoped < IValidator<RequestUpdateBookingDto>, RequestUpdateBookingDtoValidator>();
-            services.AddScoped<IValidator<RequestRegisterBookingDto>, RequestRegisterBookingDtoValidator>();
+            services.AddScoped < IValidator<UpdateBookingCommand>, RequestUpdateBookingValidator>();
+            
+            services.AddScoped<IValidator<RegisterBookingCommand>, RequestRegisterBookingValidator>();
             
             services.AddScoped<IValidator<RequestRegisterRoomDto>, RequestRegisterRoomDtoValidator>();
 

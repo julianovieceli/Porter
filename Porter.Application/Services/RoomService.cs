@@ -3,7 +3,6 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
-using Porter.Common.Services;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
 using Porter.Domain.Validators;

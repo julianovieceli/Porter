@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Porter.Application.Commands.Booking;
 using Porter.Application.Queries.Booking;
 using Porter.Application.Queries.Client;
 using Porter.Application.Services;
@@ -14,11 +15,9 @@ namespace Porter.Api.Controllers
     public class BookingController : CustomBaseController
     {
 
-        private readonly IBookingService _bookingSrevice;
         
-        public BookingController(ILogger<BookingController> logger, IBookingService bookingSrevice, IMediator mediator) :base(logger, mediator)
+        public BookingController(ILogger<BookingController> logger, IMediator mediator) :base(logger, mediator)
         {
-            _bookingSrevice = bookingSrevice;
         }
 
         [HttpGet()]
@@ -36,10 +35,9 @@ namespace Porter.Api.Controllers
 
 
         [HttpPost(Name = "PostBooking")]
-        public async Task<IActionResult> Register(RequestRegisterBookingDto registerBooking)
+        public async Task<IActionResult> Register(RegisterBookingCommand registerBooking)
         {
-            
-            var result = await _bookingSrevice.Register(registerBooking);
+            var result = await _mediator.Send(registerBooking);
 
             if (result.IsFailure)
             {
@@ -63,11 +61,10 @@ namespace Porter.Api.Controllers
         }
 
         [HttpDelete(Name = "DeleteBooking")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromQuery] int id)
         {
-
-            var result = await _bookingSrevice.Delete(id);
-
+            var result = await _mediator.Send(new DeleteBookingByIdCommand() { Id = id });
+           
             if (result.IsFailure)
             {
                 return base.CreateResponseFromResult(result);
@@ -79,7 +76,8 @@ namespace Porter.Api.Controllers
         [HttpGet("fetch-by-room-period")]
         public async Task<IActionResult> GetBookingListByRoomAndPeriod([FromQuery] int roomId, DateTime startDate, DateTime endDate)
         {
-            var result = await _bookingSrevice.GetBookingListByRoomAndPeriod(roomId, startDate, endDate);
+            var result = await _mediator.Send(new GetBookingListByRoomAndPeriodQuery() { RoomId = roomId, StartDate = startDate, EndDate = endDate });
+
 
             if (result.IsFailure)
             {
@@ -90,10 +88,11 @@ namespace Porter.Api.Controllers
         }
 
         [HttpPut(Name = "UpdateBooking")]
-        public async Task<IActionResult> Update(RequestUpdateBookingDto requestUpdateBookingDto)
+        public async Task<IActionResult> Update(UpdateBookingCommand updateBookingCommand)
         {
 
-            var result = await _bookingSrevice.Update(requestUpdateBookingDto);
+            var result = await _mediator.Send(updateBookingCommand);
+            
 
             if (result.IsFailure)
             {
