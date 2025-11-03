@@ -1,20 +1,19 @@
 ﻿using FluentValidation;
-using Porter.Domain.Validators;
-using Porter.Dto;
+using Porter.Application.Commands.Booking;
 
 namespace Porter.Application.Validators
 {
-    public class RequestRegisterRoomDtoValidator : AbstractValidator<RequestRegisterRoomDto>
+    public class RegisterRoomCommandValidator : AbstractValidator<RegisterRoomCommand>
     {
-        public RequestRegisterRoomDtoValidator()
+        public RegisterRoomCommandValidator()
         {
             RuleFor(room => room.Name).NotNull().NotEmpty().
                 Custom(
                     (name, context) =>
                     {
-                        if (name.Length < 5)
+                        if ((name.Length < 5) || (name.Contains(" ")))
                         {
-                            context.AddFailure("Nome da sala precisa ter 5 caracteres ao menos.");
+                            context.AddFailure("Nome da sala precisa ter 5 caracteres ao menos e não pode ter espaço.");
                         }
                     });
 

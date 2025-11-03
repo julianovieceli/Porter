@@ -2,9 +2,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Porter.Application.Commands.Booking;
 using Porter.Application.Queries.Booking;
-using Porter.Application.Queries.Client;
-using Porter.Application.Services;
-using Porter.Application.Services.Interfaces;
 using Porter.Common;
 using Porter.Dto;
 

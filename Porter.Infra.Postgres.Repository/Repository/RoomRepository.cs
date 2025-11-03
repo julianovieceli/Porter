@@ -42,7 +42,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
             try
             {
 
-                var room = await _context.Rooms.FirstOrDefaultAsync(p => p.Name == name);
+                var room = await _context.Rooms.FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
 
                 
                 return room;
@@ -59,7 +59,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
             try
             {
 
-                var total = await _context.Rooms.CountAsync(p => p.Name == name);
+                var total = await _context.Rooms.CountAsync(p => p.Name.ToLower() == name.ToLower());
                 return total;
 
             }

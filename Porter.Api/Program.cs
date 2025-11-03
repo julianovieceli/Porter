@@ -36,7 +36,6 @@ builder.Services.AddControllers()
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddApplicationServices();
 builder.Services.AddLogService();
 builder.Services.AddAutoMapper();
 builder.Services.AddValidators();

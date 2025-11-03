@@ -4,20 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Porter.Application.Commands.Booking;
 using Porter.Application.Commands.Client;
 using Porter.Application.Mapping;
-using Porter.Application.Services;
-using Porter.Application.Services.Interfaces;
 using Porter.Application.Validators;
-using Porter.Dto;
 
 namespace Porter.Application
 {
     public static class IoC
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-        {
-            return services.AddScoped<IRoomService, RoomService>();
-
-        }
+  
 
         public static IServiceCollection AddAutoMapper(this IServiceCollection services)
         {
@@ -43,7 +36,7 @@ namespace Porter.Application
             
             services.AddScoped<IValidator<RegisterBookingCommand>, RequestRegisterBookingValidator>();
             
-            services.AddScoped<IValidator<RequestRegisterRoomDto>, RequestRegisterRoomDtoValidator>();
+            services.AddScoped<IValidator<RegisterRoomCommand>, RegisterRoomCommandValidator>();
 
             return services.AddScoped<IValidator<RegisterClientCommand>, RegisterClientCommandValidator>();
         }

@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Porter.Application.Services.Interfaces;
+using Porter.Application.Commands.Booking;
+using Porter.Application.Queries.Room;
 using Porter.Common;
 using Porter.Dto;
 
@@ -11,17 +12,15 @@ namespace Porter.Api.Controllers
     public class RoomController : CustomBaseController
     {
 
-        private readonly IRoomService _roomService;
-        
-        public RoomController(ILogger<ClientController> logger, IRoomService roomService, IMediator mediator) :base(logger, mediator)
+        public RoomController(ILogger<ClientController> logger,  IMediator mediator) :base(logger, mediator)
         {
-            _roomService = roomService;
         }
 
         [HttpGet("fetch-all")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _roomService.GetAll();
+            //
+            var result = await _mediator.Send(new GetAllRoomsQuery());
 
             if (result.IsFailure)
             {
@@ -33,9 +32,9 @@ namespace Porter.Api.Controllers
 
 
         [HttpGet()]
-        public async Task<IActionResult> Get(string? name)
+        public async Task<IActionResult> Get([FromQuery] GetRoomByNameQuery getRoomByNameQuery)
         {
-            var result = await _roomService.GetByName(name);
+            var result = await _mediator.Send(getRoomByNameQuery);
 
             if (result.IsFailure)
             {
@@ -47,10 +46,10 @@ namespace Porter.Api.Controllers
 
 
         [HttpPost(Name = "PostRoom")]
-        public async Task<IActionResult> Register(RequestRegisterRoomDto registerRoom)
+        public async Task<IActionResult> Register(RegisterRoomCommand registerRoom)
         {
             
-            var result = await _roomService.Register(registerRoom);
+            var result = await _mediator.Send(registerRoom);
 
             if (result.IsFailure)
             {

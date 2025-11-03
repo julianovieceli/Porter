@@ -3,8 +3,6 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Commands.Booking;
-using Porter.Application.Commands.Client;
-using Porter.Application.Services.Interfaces;
 using Porter.Common;
 using Porter.Common.Services;
 using Porter.Common.Utils;

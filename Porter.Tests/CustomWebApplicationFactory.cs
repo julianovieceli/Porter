@@ -16,63 +16,61 @@ public class CustomWebApplicationFactory<Program> : WebApplicationFactory<Progra
         builder.ConfigureServices(services =>
         {
 
-            //var dbContextDescriptor = services.SingleOrDefault(
-            //d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
+            var dbContextDescriptor = services.SingleOrDefault(
+            d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
 
-            //// 2. Remove the production DbContext registration
-            //if (dbContextDescriptor != null)
-            //{
-            //    services.Remove(dbContextDescriptor);
-            //}
-
-            //var dbContextService = services.SingleOrDefault(
-            //    d => d.ServiceType == typeof(AppDbContext));
-
-            //if (dbContextService != null)
-            //{
-            //    services.Remove(dbContextService);
-            //}
-
-            //var cacheKeyDescriptor = services.SingleOrDefault(
-            //d => d.ServiceType == typeof(Microsoft.EntityFrameworkCore.Infrastructure.IModelCacheKeyFactory));
-
-            //if (cacheKeyDescriptor != null)
-            //{
-            //    services.Remove(cacheKeyDescriptor);
-            //}
-
-
-
-            //services.AddDbContext<AppDbContext>(options =>
-            //    {
-            //        options.UseInMemoryDatabase("PorterDbTest");
-            //    });
-
-
-            var sp = services.BuildServiceProvider();
-            using (var scope = sp.CreateScope())
+            // 2. Remove the production DbContext registration
+            if (dbContextDescriptor != null)
             {
-                var scopedServices = scope.ServiceProvider;
-                var db = scopedServices.GetRequiredService<AppDbContext>();
-
-                // apagando os dados
-                db.Database.EnsureCreated();
-
-                db.Bookings.ExecuteDelete();
-                db.Clients.ExecuteDelete();
-                db.Rooms.ExecuteDelete();
-
-                Client client = new Client("Cliente Teste", Constants.Docto);
-                db.Clients.Add(client);
-
-                Room room = new Room(Constants.Sala1);
-                db.Rooms.Add(room);
-
-                db.SaveChanges();
-                // Exemplo de populamento de dados
-                //db.Clients.Add(new Product { Id = 1, Name = "Produto Teste", Price = 10.0m });
-                // db.SaveChanges();
+                services.Remove(dbContextDescriptor);
             }
-        });
+
+            var dbContextService = services.SingleOrDefault(
+                d => d.ServiceType == typeof(AppDbContext));
+
+            if (dbContextService != null)
+            {
+                services.Remove(dbContextService);
+            }
+
+            var cacheKeyDescriptor = services.SingleOrDefault(
+            d => d.ServiceType == typeof(Microsoft.EntityFrameworkCore.Infrastructure.IModelCacheKeyFactory));
+
+            if (cacheKeyDescriptor != null)
+            {
+                services.Remove(cacheKeyDescriptor);
+            }
+
+        //    services.AddDbContext<AppDbContext>(options =>
+        //        {
+        //            options.UseInMemoryDatabase("PorterDbTest");
+        //        });
+
+
+            //    var sp = services.BuildServiceProvider();
+            //    using (var scope = sp.CreateScope())
+            //    {
+            //        var scopedServices = scope.ServiceProvider;
+            //        var db = scopedServices.GetRequiredService<AppDbContext>();
+
+            //        // apagando os dados
+            //        db.Database.EnsureCreated();
+
+            //        db.Bookings.ExecuteDelete();
+            //        db.Clients.ExecuteDelete();
+            //        db.Rooms.ExecuteDelete();
+
+            //        Client client = new Client("Cliente Teste", Constants.Docto);
+            //        db.Clients.Add(client);
+
+            //        Room room = new Room(Constants.Sala1);
+            //        db.Rooms.Add(room);
+
+            //        db.SaveChanges();
+            //        // Exemplo de populamento de dados
+            //        //db.Clients.Add(new Product { Id = 1, Name = "Produto Teste", Price = 10.0m });
+            //        // db.SaveChanges();
+            //    }
+            });
     }
 }
