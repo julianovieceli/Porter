@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Porter.Domain.Interfaces;
-using Porter.Common.EF.Repository;
 using Porter.Infra.Postgres.Repository.Repository;
 
 namespace Porter.Infra.Postgres.Repository
