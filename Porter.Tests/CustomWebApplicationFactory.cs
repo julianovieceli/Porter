@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Porter.Application.Commands.Client;
 using Porter.Domain;
-using Porter.Dto;
 using Porter.Infra.Postgres.Repository;
 
 
@@ -64,14 +61,12 @@ public class CustomWebApplicationFactory<Program> : WebApplicationFactory<Progra
                 db.Bookings.ExecuteDelete();
                 db.Clients.ExecuteDelete();
                 db.Rooms.ExecuteDelete();
-                
 
                 Client client = new Client("Cliente Teste", Constants.Docto);
                 db.Clients.Add(client);
 
                 Room room = new Room(Constants.Sala1);
                 db.Rooms.Add(room);
-
 
                 db.SaveChanges();
                 // Exemplo de populamento de dados

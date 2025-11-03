@@ -9,6 +9,7 @@ using System.Text.Json;
 
 namespace Porter.Tests.ClientTests;
 
+[Collection("Integration Test Collection")]
 public class BookingControllerTests : IClassFixture<CustomWebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;
