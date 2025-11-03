@@ -1,4 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Porter.Application.Commands.Client;
+using Porter.Application.Queries.Client;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
 using Porter.Dto;
@@ -10,18 +13,17 @@ namespace Porter.Api.Controllers
     public class ClientController : CustomBaseController
     {
 
-        private readonly IClientService _clientService;
         
-        public ClientController(ILogger<ClientController> logger, IClientService clientService) :base(logger)
+        public ClientController(ILogger<ClientController> logger, IMediator mediator) :base(logger, mediator)
         {
-            _clientService = clientService;
         }
 
         [HttpGet("fetch-all")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _clientService.GetAll();
+            var result = await _mediator.Send(new GetAllClientsQuery());
 
+            
             if (result.IsFailure)
             {
                 return base.CreateResponseFromResult(result);
@@ -32,10 +34,11 @@ namespace Porter.Api.Controllers
 
 
         [HttpGet()]
-        public async Task<IActionResult> Get(string? docto)
+        public async Task<IActionResult> Get(GetClientByDoctoQuery docto)
         {
-            var result = await _clientService.GetByDocto(docto);
+            var result = await _mediator.Send(docto);
 
+          
             if (result.IsFailure)
             {
                 return base.CreateResponseFromResult(result);
@@ -46,10 +49,12 @@ namespace Porter.Api.Controllers
 
 
         [HttpPost(Name = "PostClient")]
-        public async Task<IActionResult> Register(RequestRegisterClientDto registerClient)
+        public async Task<IActionResult> Register(RegisterClientCommand registerClient)
         {
-            
-            var result = await _clientService.Register(registerClient);
+            var result = await _mediator.Send(registerClient);
+
+
+            //var result = await _clientService.Register(registerClient);
 
             if (result.IsFailure)
             {

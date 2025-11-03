@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Porter.Application.Services;
 using Porter.Application.Services.Interfaces;
@@ -13,7 +14,7 @@ namespace Porter.Api.Controllers
 
         private readonly IBookingService _bookingSrevice;
         
-        public BookingController(ILogger<BookingController> logger, IBookingService bookingSrevice) :base(logger)
+        public BookingController(ILogger<BookingController> logger, IBookingService bookingSrevice, IMediator mediator) :base(logger, mediator)
         {
             _bookingSrevice = bookingSrevice;
         }

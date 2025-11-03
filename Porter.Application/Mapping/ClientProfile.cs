@@ -10,8 +10,6 @@ namespace Porter.Application.Mapping
         {
             
             CreateMap<Client, ResponseClientDto>().ReverseMap();
-            CreateMap<Client, RequestRegisterClientDto>().ReverseMap();
-
         }
     }
 }

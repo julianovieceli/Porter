@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Porter.Common;
 using Porter.Dto;
 
@@ -8,10 +9,14 @@ namespace Porter.Api.Controllers
     {
 
         protected readonly ILogger<CustomBaseController> _logger;
+        protected readonly IMediator _mediator;
 
-        protected CustomBaseController(ILogger<CustomBaseController> logger)
+
+        protected CustomBaseController(ILogger<CustomBaseController> logger, IMediator mediator)
+
         {
-            _logger = logger;   
+            _logger = logger;
+            _mediator = mediator;
         }
 
         protected IActionResult CreateResponseFromResult(Result result)

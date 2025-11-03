@@ -42,6 +42,10 @@ builder.Services.AddAutoMapper();
 builder.Services.AddValidators();
 builder.Services.ConfigurePostGresDbContext(builder.Configuration);
 
+builder.Services.RegisterMediator();
+
+
+
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 
 

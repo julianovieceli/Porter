@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
+using Porter.Application.Commands.Client;
 using Porter.Domain.Validators;
-using Porter.Dto;
 
 namespace Porter.Application.Validators
 {
-    public class RequestRegisterClientDtoValidator : AbstractValidator<RequestRegisterClientDto>
+    public class RegisterClientCommandValidator : AbstractValidator<RegisterClientCommand>
     {
-        public RequestRegisterClientDtoValidator()
+        public RegisterClientCommandValidator()
         {
             RuleFor(client => client.Name).NotNull().NotEmpty().
                 Custom(

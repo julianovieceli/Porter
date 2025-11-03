@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
@@ -12,7 +13,7 @@ namespace Porter.Api.Controllers
 
         private readonly IRoomService _roomService;
         
-        public RoomController(ILogger<ClientController> logger, IRoomService roomService) :base(logger)
+        public RoomController(ILogger<ClientController> logger, IRoomService roomService, IMediator mediator) :base(logger, mediator)
         {
             _roomService = roomService;
         }

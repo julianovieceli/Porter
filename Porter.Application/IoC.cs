@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Porter.Application.Commands.Client;
 using Porter.Application.Mapping;
 using Porter.Application.Services;
 using Porter.Application.Services.Interfaces;
 using Porter.Application.Validators;
 using Porter.Dto;
+using System;
 
 namespace Porter.Application
 {
@@ -15,8 +17,8 @@ namespace Porter.Application
         {
 
             services.AddScoped<IBookingService, BookingService>();
-            services.AddScoped<IRoomService, RoomService>();
-            return services.AddScoped<IClientService, ClientService>();
+            return services.AddScoped<IRoomService, RoomService>();
+            // return services.AddScoped<IClientService, ClientService>();
 
         }
 
@@ -44,8 +46,13 @@ namespace Porter.Application
             services.AddScoped<IValidator<RequestRegisterBookingDto>, RequestRegisterBookingDtoValidator>();
             
             services.AddScoped<IValidator<RequestRegisterRoomDto>, RequestRegisterRoomDtoValidator>();
-            return services.AddScoped<IValidator<RequestRegisterClientDto>, RequestRegisterClientDtoValidator>();
+            return services.AddScoped<IValidator<RegisterClientCommand>, RegisterClientCommandValidator>();
         }
 
-    }
+        public static IServiceCollection RegisterMediator(this IServiceCollection services)
+        {
+            return services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+        }
+
+}
 }

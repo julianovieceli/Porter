@@ -9,6 +9,7 @@ namespace Porter.Common
         {
             return services.AddScoped<ILogService, LogService>();
         }
+
     }
 
 }
