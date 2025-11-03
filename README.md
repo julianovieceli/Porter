@@ -53,6 +53,9 @@ CREATE TABLE IF NOT EXISTS Log
 
 
 
+/*Passos para executar*/
 
+1- Subir a aplicacao e cadastrar um client e uma room.
+2-Após isso, cadastrar uma booking utilizando os ids do client e da room criados.
 
 
