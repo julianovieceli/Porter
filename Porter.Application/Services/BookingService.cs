@@ -34,58 +34,6 @@ namespace Porter.Application.Services
         }
 
 
-        public async Task<Result> GetAll()
-        {
-            try
-            {
-                var bookingList = await _bookingRepository.GetAll();
-
-                await base._logService.LogList(new Booking(), MethodBase.GetCurrentMethod().DeclaringType.Name);
-
-                IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
-
-                return Result<IList<ResponseBookingDto>>.Success(listToReturn);
-            }
-            catch (Exception ex)
-            {
-                return Result.Failure("666", "Erro ao consultar reservas");
-            }
-        }
-
-        public async Task<Result> GetById(int Id)
-        {
-            try
-            {
-
-                if (Id <= 0)
-                    return Result.Failure("400", "Id inválido");
-
-                var booking = await _bookingRepository.GetById(Id);
-
-                await base._logService. LogView(booking, MethodBase.GetCurrentMethod().DeclaringType.Name);
-
-                if (booking is null)
-                    return Result.Failure("404", "Reserva não encontrada"); //erro nao encontrado
-                else
-                {
-                    var bookingDto = _dataMapper.Map<ResponseBookingDto>(booking);
-
-                    return Result<ResponseBookingDto>.Success(bookingDto);
-                }
-
-            }
-            catch(ArgumentNullException exArg)
-            {
-                return Result.Failure("400", "Id obrigatório");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao consultar uma reserva");
-                return Result.Failure("666", "Erro ao consultar uma reserva");
-            }
-
-
-        }
 
         public async Task<Result> Register(RequestRegisterBookingDto requestRegisterBookingDto)
         {
@@ -112,7 +60,7 @@ namespace Porter.Application.Services
                     requestRegisterBookingDto.EndDate) == 0)
                 {
 
-                    Booking booking = new Booking(room, client, requestRegisterBookingDto.StartDate,requestRegisterBookingDto.EndDate, requestRegisterBookingDto.Obs);
+                    Domain.Booking booking = new Domain.Booking(room, client, requestRegisterBookingDto.StartDate,requestRegisterBookingDto.EndDate, requestRegisterBookingDto.Obs);
 
                     int bookingRegistered = await _bookingRepository.Register(booking);
 
@@ -148,7 +96,7 @@ namespace Porter.Application.Services
 
                 if (await _bookingRepository.Delete(Id) > 0)
                 {
-                    await base._logService.LogDelete(new Booking() { Id = Id}, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                    await base._logService.LogDelete(new Domain.Booking() { Id = Id}, MethodBase.GetCurrentMethod().DeclaringType.Name);
                     return Result.Success;
                 }
                 else
@@ -196,7 +144,7 @@ namespace Porter.Application.Services
                 if (booking is null)
                     return Result.Failure("400", "Reerva não encontrada");
 
-                Booking bookingToLog = JsonUtils.DeepClone(booking);
+                Domain.Booking bookingToLog = JsonUtils.DeepClone(booking);
 
                 // Verifica se ja existe outra reserva para a mesma sala e periodo que NAO seja a mesma reserva...
                 if (await _bookingRepository.GetBookingCountByRoomAndPeriod(booking.Room.Id, booking.Id, requestUpdateBookingDto.StartDate,

@@ -1,5 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Porter.Application.Queries.Booking;
+using Porter.Application.Queries.Client;
 using Porter.Application.Services;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
@@ -20,9 +22,9 @@ namespace Porter.Api.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get([FromQuery] int id)
         {
-            var result = await _bookingSrevice.GetById(id);
+            var result = await _mediator.Send(new GetBookingByIdQuery() { Id = id });
 
             if (result.IsFailure)
             {
@@ -50,7 +52,7 @@ namespace Porter.Api.Controllers
         [HttpGet("fetch-all")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _bookingSrevice.GetAll();
+            var result = await _mediator.Send(new GetAllBookingsQuery());
 
             if (result.IsFailure)
             {

@@ -46,6 +46,7 @@ namespace Porter.Application
             services.AddScoped<IValidator<RequestRegisterBookingDto>, RequestRegisterBookingDtoValidator>();
             
             services.AddScoped<IValidator<RequestRegisterRoomDto>, RequestRegisterRoomDtoValidator>();
+
             return services.AddScoped<IValidator<RegisterClientCommand>, RegisterClientCommandValidator>();
         }
 

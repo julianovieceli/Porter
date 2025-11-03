@@ -9,17 +9,15 @@ using Porter.Dto;
 
 namespace Porter.Application.Queries.Client
 {
-    public class ClientQueriesHandlerService : BaseService, IRequestHandler<GetAllClientsQuery, Result>
+    public class GetAllClientsQueryHandler : BaseService, IRequestHandler<GetAllClientsQuery, Result>
     {
         private readonly IClientRepository _clientRepository;
         
-        public ClientQueriesHandlerService(ILogger<ClientCommandsHandlerService> logger, IMapper dataMapper, IClientRepository clientRepository)
+        public GetAllClientsQueryHandler(ILogger<GetAllClientsQueryHandler> logger, IMapper dataMapper, IClientRepository clientRepository)
             : base(logger, dataMapper)
         {
             _clientRepository = clientRepository;
         }
-
-      
 
         public async Task<Result> Handle(GetAllClientsQuery request, CancellationToken cancellationToken)
         {
@@ -35,6 +33,17 @@ namespace Porter.Application.Queries.Client
             {
                 return Result.Failure("666", "Erro ao consultar clientes");
             }
+        }
+    }
+
+    public class GetClientByDoctoQueryHandler: BaseService, IRequestHandler<GetClientByDoctoQuery, Result>
+    {
+        private readonly IClientRepository _clientRepository;
+
+        public GetClientByDoctoQueryHandler(ILogger<GetClientByDoctoQueryHandler> logger, IMapper dataMapper, IClientRepository clientRepository)
+            : base(logger, dataMapper)
+        {
+            _clientRepository = clientRepository;
         }
 
         public async Task<Result> Handle(GetClientByDoctoQuery request, CancellationToken cancellationToken)
@@ -68,10 +77,5 @@ namespace Porter.Application.Queries.Client
                 return Result.Failure("666", "Erro ao consultar um Cliente");
             }
         }
-
-
-       
-
-       
     }
 }

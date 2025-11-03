@@ -2,7 +2,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Porter.Application.Commands.Client;
 using Porter.Application.Queries.Client;
-using Porter.Application.Services.Interfaces;
 using Porter.Common;
 using Porter.Dto;
 
@@ -34,9 +33,9 @@ namespace Porter.Api.Controllers
 
 
         [HttpGet()]
-        public async Task<IActionResult> Get(GetClientByDoctoQuery docto)
+        public async Task<IActionResult> Get([FromQuery] string docto)
         {
-            var result = await _mediator.Send(docto);
+            var result = await _mediator.Send(new GetClientByDoctoQuery() { Docto = docto });
 
           
             if (result.IsFailure)
@@ -53,8 +52,6 @@ namespace Porter.Api.Controllers
         {
             var result = await _mediator.Send(registerClient);
 
-
-            //var result = await _clientService.Register(registerClient);
 
             if (result.IsFailure)
             {
