@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
+using Porter.Infra.Postgres.Repository;
 
-namespace Porter.Infra.Postgres.Repository.Repository
+namespace Porter.Common.EF.Repository
 {
     public class LogRepository : ILogRepository
     {
@@ -11,7 +11,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
         private readonly AppDbContext _context;
         private readonly ILogger<LogRepository> _logger;
 
-        public LogRepository(AppDbContext context, ILogger<LogRepository> logger)
+        public LogRepository(ILogger<LogRepository> logger, AppDbContext context)
         {
             _context = context;
             _logger = logger;
@@ -21,6 +21,7 @@ namespace Porter.Infra.Postgres.Repository.Repository
 
         public async Task Register(Log log)
         {
+
             try
             {
                 _context.Logs.Add(log);

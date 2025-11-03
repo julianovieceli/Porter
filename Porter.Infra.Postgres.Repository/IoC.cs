@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Porter.Domain.Interfaces;
+using Porter.Common.EF.Repository;
 using Porter.Infra.Postgres.Repository.Repository;
 
 namespace Porter.Infra.Postgres.Repository
@@ -24,7 +24,7 @@ namespace Porter.Infra.Postgres.Repository
                     })
                 .UseLazyLoadingProxies();
             });
-            services.AddScoped<ILogRepository, LogRepository>();
+            //services.AddEFLogRepository();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             return services.AddScoped<IClientRepository, ClientRepository>();

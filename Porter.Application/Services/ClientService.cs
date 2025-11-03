@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
+using Porter.Common.Services;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
 using Porter.Domain.Validators;
@@ -16,8 +17,8 @@ namespace Porter.Application.Services
         private readonly IValidator<RequestRegisterClientDto> _clientValidator;
         
         public ClientService(ILogger<ClientService> logger, IMapper dataMapper, IClientRepository clientRepository,
-            IValidator<RequestRegisterClientDto> clientValidator, ILogRepository logRepository)
-            : base(logger, dataMapper, logRepository)
+            IValidator<RequestRegisterClientDto> clientValidator)
+            : base(logger, dataMapper)
         {
             _clientRepository = clientRepository;
             _clientValidator = clientValidator;

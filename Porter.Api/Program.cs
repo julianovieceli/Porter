@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Porter.Application;
-using Porter.Common;
 using Porter.Common.Utils;
 using Porter.Dto;
 using Porter.Infra.Postgres.Repository;
-using System.Linq;
+using Porter.Common;
+using Porter.Common.EF.Repository;
+using Porter.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,9 +37,13 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddApplicationServices();
+builder.Services.AddLogService();
 builder.Services.AddAutoMapper();
 builder.Services.AddValidators();
 builder.Services.ConfigurePostGresDbContext(builder.Configuration);
+
+builder.Services.AddScoped<ILogRepository, LogRepository>();
+
 
 var app = builder.Build();
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Porter.Domain;
-using System.Reflection.Metadata;
 
 namespace Porter.Infra.Postgres.Repository
 {
@@ -11,20 +10,30 @@ namespace Porter.Infra.Postgres.Repository
 
         public DbSet<Room> Rooms { get; set; } = default!;
 
+        
+        public DbSet<Booking> Bookings { get; set; } = default!;
+
+
         public DbSet<Log> Logs { get; set; } = default!;
 
-        public DbSet<Booking> Bookings { get; set; } = default!;
+
+
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
+          : base(options)
         {
         }
+   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new BookingConfiguration());
+
             modelBuilder.ApplyConfiguration(new LogConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
 
      
@@ -138,7 +147,8 @@ namespace Porter.Infra.Postgres.Repository
                 .HasColumnName("action");
 
             builder.Property(e => e.Data)
-                .HasColumnName("data");
+                .HasColumnName("data")
+                .HasColumnType("jsonb"); 
 
             builder.Property(e => e.MethodName)
                 .HasColumnName("methodname");
@@ -150,7 +160,9 @@ namespace Porter.Infra.Postgres.Repository
             builder.Property(e => e.CreateTime)
                 .HasColumnName("createtime");
 
-     
+
         }
     }
+
+
 }

@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
+using Porter.Common.Services;
 using Porter.Common.Utils;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
@@ -21,9 +22,9 @@ namespace Porter.Application.Services
         private readonly IValidator<RequestUpdateBookingDto> _bookingUpdateValidator;
 
         public BookingService(ILogger<BookingService> logger, IMapper dataMapper, IBookingRepository bookingRepository,
-            IRoomRepository roomRepository, IClientRepository clientRepository, ILogRepository logRepository,
+            IRoomRepository roomRepository, IClientRepository clientRepository, ILogService logService,
             IValidator<RequestRegisterBookingDto> bookingValidator, IValidator<RequestUpdateBookingDto> bookingUpdateValidator)
-            :base(logger, dataMapper, logRepository)
+            :base(logger, dataMapper, logService)
         {
             _bookingRepository = bookingRepository;
             _roomRepository = roomRepository;
@@ -39,7 +40,7 @@ namespace Porter.Application.Services
             {
                 var bookingList = await _bookingRepository.GetAll();
 
-                await base.LogList(new Booking(), MethodBase.GetCurrentMethod().DeclaringType.Name);
+                await base._logService.LogList(new Booking(), MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                 IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
 
@@ -61,7 +62,7 @@ namespace Porter.Application.Services
 
                 var booking = await _bookingRepository.GetById(Id);
 
-                await base.LogView(booking, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                await base._logService. LogView(booking, MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                 if (booking is null)
                     return Result.Failure("404", "Reserva não encontrada"); //erro nao encontrado
@@ -119,7 +120,7 @@ namespace Porter.Application.Services
 
                     if (bookingRegistered > 0)
                     {
-                        await base.LogInsert(booking, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                        await base._logService.LogInsert(booking, MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                         var response = _dataMapper.Map<ResponseBookingDto>(booking);
                         return Result<ResponseBookingDto>.Success(response);
@@ -147,7 +148,7 @@ namespace Porter.Application.Services
 
                 if (await _bookingRepository.Delete(Id) > 0)
                 {
-                    await base.LogDelete(new Booking() { Id = Id}, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                    await base._logService.LogDelete(new Booking() { Id = Id}, MethodBase.GetCurrentMethod().DeclaringType.Name);
                     return Result.Success;
                 }
                 else
@@ -169,7 +170,7 @@ namespace Porter.Application.Services
 
                 IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
 
-                await base.LogList(listToReturn, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                await base._logService.LogList(listToReturn, MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                 return Result<IList<ResponseBookingDto>>.Success(listToReturn);
             }
@@ -208,7 +209,7 @@ namespace Porter.Application.Services
 
                     if (bookingRegistered > 0)
                     {
-                        await base.LogUpdate(bookingToLog, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                        await base._logService.LogUpdate(bookingToLog, MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                         booking = await _bookingRepository.GetById(requestUpdateBookingDto.Id);
 

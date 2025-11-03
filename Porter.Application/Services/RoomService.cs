@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Services.Interfaces;
 using Porter.Common;
+using Porter.Common.Services;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
 using Porter.Domain.Validators;
@@ -16,7 +17,7 @@ namespace Porter.Application.Services
         private readonly IValidator<RequestRegisterRoomDto> _roomValidator;
         
         public RoomService(ILogger<RoomService> logger, IMapper dataMapper, IRoomRepository roomRepository,
-            IValidator<RequestRegisterRoomDto> roomValidator, ILogRepository logRepository) : base(logger, dataMapper, logRepository)
+            IValidator<RequestRegisterRoomDto> roomValidator) : base(logger, dataMapper)
         {
             _roomRepository = roomRepository;
             _roomValidator = roomValidator;

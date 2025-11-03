@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Porter.Domain;
-using Porter.Domain.Interfaces;
-using System.Text.Json;
-using static Porter.Domain.Log;
+using Porter.Common.Services;
 
 namespace Porter.Application.Services
 {
@@ -12,107 +9,18 @@ namespace Porter.Application.Services
         protected ILogger<BaseService> _logger;
         protected readonly IMapper _dataMapper;
 
-        private readonly ILogRepository _logRepository;
-        public BaseService(ILogger<BaseService> logger, IMapper dataMapper, ILogRepository logRepository)
+        protected readonly ILogService _logService;
+        public BaseService(ILogger<BaseService> logger, IMapper dataMapper, ILogService logService): this(logger, dataMapper)
+        {
+            _logService = logService;
+        }
+
+        public BaseService(ILogger<BaseService> logger, IMapper dataMapper)
         {
             _logger = logger;
-            _logRepository = logRepository;
             _dataMapper = dataMapper;
         }
 
-        protected async Task LogList<T>(T entity, string methodName)
-        {
-            try
-            {
-                ArgumentNullException.ThrowIfNull(entity, "entity");
 
-                Log log = new Log(ACTION.LIST, entity.GetType(), methodName);
-
-                await _logRepository.Register(log);
-
-            }
-            catch (Exception e)
-            {
-                //return Result.Failure("666", e.Message);
-            }
-        }
-
-        protected async Task LogView<T>(T entity, string methodName)
-        {
-            try
-            {
-                ArgumentNullException.ThrowIfNull(entity, "entity");
-
-                var data = JsonSerializer.Serialize(entity);
-                Log log = new Log(ACTION.VIEW, entity.GetType(), methodName, data);
-
-                await _logRepository.Register(log);
-
-            }
-            catch (Exception e)
-            {
-                //return Result.Failure("666", e.Message);
-            }
-        }
-
-        protected async Task LogUpdate<T>(T entity, string methodName)
-        {
-            try
-            {
-                ArgumentNullException.ThrowIfNull(entity, "entity");
-
-                var data = JsonSerializer.Serialize(entity);
-
-                Log log = new Log(ACTION.UPDATE, entity.GetType(), methodName, data);
-
-
-                await _logRepository.Register(log);
-
-            }
-            catch (Exception e)
-            {
-                //return Result.Failure("666", e.Message);
-            }
-        }
-
-        protected async Task LogInsert<T>(T entity, string methodName)
-        {
-            try
-            {
-                ArgumentNullException.ThrowIfNull(entity, "entity");
-
-                var data = JsonSerializer.Serialize(entity);
-
-                Log log = new Log(ACTION.INSERT, entity.GetType(), methodName,  data);
-
-
-                await _logRepository.Register(log);
-
-            }
-            catch (Exception e)
-            {
-                //return Result.Failure("666", e.Message);
-            }
-        }
-
-        protected async Task LogDelete<T>(T entity, string methodName)
-        {
-            try
-            {
-                ArgumentNullException.ThrowIfNull(entity, "entity");
-
-                var data = JsonSerializer.Serialize(entity);
-
-                Log log = new Log(ACTION.DELETE, entity.GetType(), methodName, data);
-
-
-                await _logRepository.Register(log);
-
-            }
-            catch (Exception e)
-            {
-                //return Result.Failure("666", e.Message);
-            }
-        }
     }
 }

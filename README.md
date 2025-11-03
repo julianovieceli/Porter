@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Log
     action  VARCHAR(50) NOT NULL ,
     methodName  VARCHAR(200) NOT NULL ,
     entityType  VARCHAR(100) NOT NULL ,
-    data VARCHAR,
+    data JSONB,
     createTime TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
 
