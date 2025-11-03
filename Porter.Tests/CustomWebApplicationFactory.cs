@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Porter.Application.Commands.Client;
+using Porter.Domain;
+using Porter.Dto;
 using Porter.Infra.Postgres.Repository;
 
 
@@ -58,9 +61,16 @@ public class CustomWebApplicationFactory<Program> : WebApplicationFactory<Progra
                 // apagando os dados
                 db.Database.EnsureCreated();
 
-                db.Clients.ExecuteDeleteAsync();
-                db.Rooms.ExecuteDeleteAsync();
-                db.Bookings.ExecuteDeleteAsync();
+                db.Bookings.ExecuteDelete();
+                db.Clients.ExecuteDelete();
+                db.Rooms.ExecuteDelete();
+                
+
+                Client client = new Client("Cliente Teste", Constants.Docto);
+                db.Clients.Add(client);
+
+                Room room = new Room(Constants.Sala1);
+                db.Rooms.Add(room);
 
 
                 db.SaveChanges();

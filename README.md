@@ -1,11 +1,12 @@
 # Porter
 
-# Subindo container com PostgreSQL
+# Passos para rodar
+
+# 1- Subindo um container com PostgreSQL
     docker run -d --name PorterDb -p 5432:5432 -e POSTGRES_PASSWORD=teste123 postgres
 
-    # Criando banco de dados e tabelas
+# 2 - Rodar o script para criar o banco de dados e tabelas
 CREATE database PorterDb ;
-
 
 -- drop TABLE Booking;
 -- drop TABLE Room;
@@ -53,9 +54,11 @@ CREATE TABLE IF NOT EXISTS Log
 
 
 
-/*Passos para executar*/
+# 3 - Subir a aplicacao e cadastrar um client e uma room.
+# 4 -Após isso, cadastrar uma booking utilizando os ids do client e da room criados e verificar os retornos.
 
-1- Subir a aplicacao e cadastrar um client e uma room.
-2-Após isso, cadastrar uma booking utilizando os ids do client e da room criados.
+
+# 5 Para rodar os testes unitarios basta somente excuta-los. Nao foi possivel usra o InMemory(estou verificando o pq), entao eu removo 
+# todos os dados no startup.
 
 
