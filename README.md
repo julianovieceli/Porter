@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS Log
 );
 ```
 
+Link **[Swaggwer] http://localhost:5259/swagger/index.html **
+
 
 # 3 - Subir a aplicacao e cadastrar um client e uma room.
 # 4 -Após isso, cadastrar uma booking utilizando os ids do client e da room criados e verificar os retornos.
