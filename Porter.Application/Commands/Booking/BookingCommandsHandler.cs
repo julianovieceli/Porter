@@ -65,7 +65,7 @@ namespace Porter.Application.Services
 
                     if (bookingRegistered > 0)
                     {
-                        await base._logService.LogInsert(booking, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                        await base._logService.LogInsert(booking, this.GetType().Name + "_" + MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                         var response = _dataMapper.Map<ResponseBookingDto>(booking);
                         return Result<ResponseBookingDto>.Success(response);
@@ -85,79 +85,6 @@ namespace Porter.Application.Services
 
         
 
-        //public async Task<Result> Delete(int Id)
-        //{
-        //    try
-        //    {
-        //        if (Id <= 0)
-        //            return Result.Failure("400", "Id inválido");
-
-        //        if (await _bookingRepository.Delete(Id) > 0)
-        //        {
-        //            await base._logService.LogDelete(new Domain.Booking() { Id = Id}, MethodBase.GetCurrentMethod().DeclaringType.Name);
-        //            return Result.Success;
-        //        }
-        //        else
-        //        {
-        //            return Result.Failure("400", "Reserva não encontrada");
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Result.Failure("666", e.Message);
-        //    }
-        //}
-
-     
-
-        //public async Task<Result> Update(RequestUpdateBookingDto requestUpdateBookingDto)
-        //{
-        //    try
-        //    {
-        //        ArgumentNullException.ThrowIfNull(requestUpdateBookingDto, "requestUpdateBookingDto");
-
-        //        var validatorResult = _bookingUpdateValidator.Validate(requestUpdateBookingDto);
-        //        if (!validatorResult.IsValid)
-        //        {
-        //            return Result.Failure("400", validatorResult.Errors.FirstOrDefault().ErrorMessage);//Erro q usuario ja existe com este documento.
-        //        }
-
-        //        var booking = await _bookingRepository.GetById(requestUpdateBookingDto.Id);
-        //        if (booking is null)
-        //            return Result.Failure("400", "Reerva não encontrada");
-
-        //        Domain.Booking bookingToLog = JsonUtils.DeepClone(booking);
-
-        //        // Verifica se ja existe outra reserva para a mesma sala e periodo que NAO seja a mesma reserva...
-        //        if (await _bookingRepository.GetBookingCountByRoomAndPeriod(booking.Room.Id, booking.Id, requestUpdateBookingDto.StartDate,
-        //            requestUpdateBookingDto.EndDate) == 0 )
-        //        {
-        //            booking.Update(requestUpdateBookingDto.StartDate, requestUpdateBookingDto.EndDate,
-        //                requestUpdateBookingDto.Obs);
-
-        //            int bookingRegistered = await _bookingRepository.Update(booking);
-
-        //            if (bookingRegistered > 0)
-        //            {
-        //                await base._logService.LogUpdate(bookingToLog, MethodBase.GetCurrentMethod().DeclaringType.Name);
-
-        //                booking = await _bookingRepository.GetById(requestUpdateBookingDto.Id);
-
-        //                var response = _dataMapper.Map<ResponseBookingDto>(booking);
-        //                return Result<ResponseBookingDto>.Success(response);
-        //            }
-        //            else
-        //                return Result.Failure("666", "Erro ao atualizar uma reserva");
-
-        //        }
-        //        else
-        //            return Result.Failure("400", "Ja existe reserva para esta sala neste período");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Result.Failure("666", e.Message);
-        //    }
-        //}
 
 
     }
@@ -211,7 +138,7 @@ namespace Porter.Application.Services
 
                     if (bookingRegistered > 0)
                     {
-                        await base._logService.LogUpdate(bookingToLog, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                        await base._logService.LogUpdate(bookingToLog, this.GetType().Name + "_" + MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                         booking = await _bookingRepository.GetById(requestUpdateBookingDto.Id);
 
@@ -262,7 +189,7 @@ namespace Porter.Application.Services
 
                 if (await _bookingRepository.Delete(request.Id) > 0)
                 {
-                    await base._logService.LogDelete(new Domain.Booking() { Id = request.Id }, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                    await base._logService.LogDelete(new Domain.Booking() { Id = request.Id }, this.GetType().Name + "_" + MethodBase.GetCurrentMethod().DeclaringType.Name);
                     return Result.Success;
                 }
                 else

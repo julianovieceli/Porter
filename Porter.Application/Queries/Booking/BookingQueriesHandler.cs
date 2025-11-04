@@ -29,7 +29,7 @@ namespace Porter.Application.Services.Booking
             {
                 var bookingList = await _bookingRepository.GetAll();
 
-                await base._logService.LogList(new Domain.Booking(), MethodBase.GetCurrentMethod().DeclaringType.Name);
+                await base._logService.LogList(new Domain.Booking(), this.GetType().Name + "_" + MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                 IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
 
@@ -65,7 +65,7 @@ namespace Porter.Application.Services.Booking
 
                 var booking = await _bookingRepository.GetById(request.Id);
 
-                await base._logService.LogView(booking, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                await base._logService.LogView(booking, this.GetType().Name + "_" + MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                 if (booking is null)
                     return Result.Failure("404", "Reserva não encontrada"); //erro nao encontrado
@@ -109,7 +109,7 @@ namespace Porter.Application.Services.Booking
 
                 IList<ResponseBookingDto> listToReturn = bookingList.Select(u => _dataMapper.Map<ResponseBookingDto>(u)).ToList();
 
-                await base._logService.LogList(listToReturn, MethodBase.GetCurrentMethod().DeclaringType.Name);
+                await base._logService.LogList(listToReturn, this.GetType().Name + "_" + MethodBase.GetCurrentMethod().DeclaringType.Name);
 
                 return Result<IList<ResponseBookingDto>>.Success(listToReturn);
             }
