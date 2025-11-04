@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS Log
 );
 ```
 
-Link [Swaggwer]: http://localhost:5259/swagger/index.html
+Link [Swaggwer](http://localhost:5259/swagger/index.html)
 
 
 # 3 - Subir a aplicacao e cadastrar um client e uma room.
