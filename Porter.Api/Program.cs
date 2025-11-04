@@ -39,13 +39,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddLogService();
 builder.Services.AddAutoMapper();
 builder.Services.AddValidators();
-builder.Services.ConfigurePostGresDbContext(builder.Configuration);
-
+builder.Services.AddPostgresDbContext<AppDbContext>(builder.Configuration);
+builder.Services.AddRepository(builder.Configuration);
 builder.Services.RegisterMediator();
 
-
-
-builder.Services.AddScoped<ILogRepository, LogRepository>();
 
 
 var app = builder.Build();

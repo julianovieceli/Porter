@@ -1,17 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
-using Porter.Infra.Postgres.Repository;
 
 namespace Porter.Common.EF.Repository
 {
     public class LogRepository : ILogRepository
     {
 
-        private readonly AppDbContext _context;
+        private readonly DbContextBase _context;
         private readonly ILogger<LogRepository> _logger;
 
-        public LogRepository(ILogger<LogRepository> logger, AppDbContext context)
+        public LogRepository(ILogger<LogRepository> logger, DbContextBase context)
         {
             _context = context;
             _logger = logger;

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Porter.Common.EF.Repository\Porter.Common.EF.Repository.csproj" />
     <ProjectReference Include="..\Porter.Common\Porter.Common.csproj" />
     <ProjectReference Include="..\Porter.Domain\Porter.Domain.csproj" />
   </ItemGroup>

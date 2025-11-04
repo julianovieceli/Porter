@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Porter.Application.Queries.Booking;
 using Porter.Common;
 using Porter.Common.Services;
-using Porter.Domain;
 using Porter.Domain.Interfaces;
 using Porter.Dto;
 using System.Reflection;

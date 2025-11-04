@@ -12,15 +12,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Porter.Infra.Postgres.Repository", "Porter.Infra.Postgres.Repository\Porter.Infra.Postgres.Repository.csproj", "{6173386D-FB43-4D98-8384-7DDB196FA6ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Porter.Application", "Porter.Application\Porter.Application.csproj", "{4CDFD731-221E-499F-A432-7B5376972F7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Porter.Application", "Porter.Application\Porter.Application.csproj", "{4CDFD731-221E-499F-A432-7B5376972F7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Porter.Dto", "Porter.Dto\Porter.Dto.csproj", "{CF9C4C34-930D-4E67-B5F1-486C72DD7DF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Porter.Dto", "Porter.Dto\Porter.Dto.csproj", "{CF9C4C34-930D-4E67-B5F1-486C72DD7DF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Porter.Api", "Porter.Api\Porter.Api.csproj", "{BBDCDCD5-7ADA-4B53-88F9-937770BCF514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Porter.Api", "Porter.Api\Porter.Api.csproj", "{BBDCDCD5-7ADA-4B53-88F9-937770BCF514}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Porter.Common", "Porter.Common\Porter.Common.csproj", "{22B2E1BE-B39B-4748-97CC-06495834ADA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Porter.Common", "Porter.Common\Porter.Common.csproj", "{22B2E1BE-B39B-4748-97CC-06495834ADA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Porter.Tests", "Porter.Tests\Porter.Tests.csproj", "{6BEE722F-8976-4F28-9DB7-BA4DA0CE59F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Porter.Tests", "Porter.Tests\Porter.Tests.csproj", "{6BEE722F-8976-4F28-9DB7-BA4DA0CE59F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{D3DA4BB4-4075-4DF3-817F-AE6C26233D8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Porter.Common.EF.Repository", "Porter.Common.EF.Repository\Porter.Common.EF.Repository.csproj", "{C580A5FD-997D-45F6-BB58-827C20A5A364}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,9 +60,17 @@ Global
 		{6BEE722F-8976-4F28-9DB7-BA4DA0CE59F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BEE722F-8976-4F28-9DB7-BA4DA0CE59F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BEE722F-8976-4F28-9DB7-BA4DA0CE59F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C580A5FD-997D-45F6-BB58-827C20A5A364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C580A5FD-997D-45F6-BB58-827C20A5A364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C580A5FD-997D-45F6-BB58-827C20A5A364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C580A5FD-997D-45F6-BB58-827C20A5A364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{22B2E1BE-B39B-4748-97CC-06495834ADA4} = {D3DA4BB4-4075-4DF3-817F-AE6C26233D8B}
+		{C580A5FD-997D-45F6-BB58-827C20A5A364} = {D3DA4BB4-4075-4DF3-817F-AE6C26233D8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58E75F14-8F73-4AF0-AC52-4F92F4AC5326}

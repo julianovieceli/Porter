@@ -2,24 +2,24 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Porter.Domain;
 
-namespace Porter.Infra.Postgres.Repository
+namespace Porter.Common.EF.Repository
 {
-    public abstract  class DbContextBase : DbContext
+    public class DbContextBase : DbContext
     {
-        
         public DbSet<Log> Logs { get; set; } = default!;
 
 
 
+   
         public DbContextBase(DbContextOptions options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.ApplyConfiguration(new LogConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
 
      
@@ -38,7 +38,8 @@ namespace Porter.Infra.Postgres.Repository
                 .HasColumnName("action");
 
             builder.Property(e => e.Data)
-                .HasColumnName("data");
+                .HasColumnName("data")
+                .HasColumnType("jsonb"); 
 
             builder.Property(e => e.MethodName)
                 .HasColumnName("methodname");
@@ -50,7 +51,9 @@ namespace Porter.Infra.Postgres.Repository
             builder.Property(e => e.CreateTime)
                 .HasColumnName("createtime");
 
-     
+
         }
     }
+
+
 }

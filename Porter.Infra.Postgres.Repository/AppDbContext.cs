@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Porter.Common.EF.Repository;
 using Porter.Domain;
 
 namespace Porter.Infra.Postgres.Repository
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContextBase
     {
         public DbSet<Client> Clients { get; set; } = default!;
 
@@ -14,15 +15,12 @@ namespace Porter.Infra.Postgres.Repository
         public DbSet<Booking> Bookings { get; set; } = default!;
 
 
-        public DbSet<Log> Logs { get; set; } = default!;
-
-
-
-
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-          : base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
+            
         }
+
+  
    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,8 +28,6 @@ namespace Porter.Infra.Postgres.Repository
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new BookingConfiguration());
-
-            modelBuilder.ApplyConfiguration(new LogConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -134,35 +130,7 @@ namespace Porter.Infra.Postgres.Repository
         }
     }
 
-    public class LogConfiguration : IEntityTypeConfiguration<Log>
-    {
-        public void Configure(EntityTypeBuilder<Log> builder)
-        {
-            builder.ToTable("log");
-            builder.Property(e => e.Id)
-                .HasColumnName("id");
-
-
-            builder.Property(e => e.Action)
-                .HasColumnName("action");
-
-            builder.Property(e => e.Data)
-                .HasColumnName("data")
-                .HasColumnType("jsonb"); 
-
-            builder.Property(e => e.MethodName)
-                .HasColumnName("methodname");
-
-            builder.Property(e => e.EntityType)
-                .HasColumnName("entitytype");
-
-
-            builder.Property(e => e.CreateTime)
-                .HasColumnName("createtime");
-
-
-        }
-    }
+    
 
 
 }
