@@ -65,11 +65,6 @@ Link [Swaggwer](http://localhost:5259/swagger/index.html)
     2- Cadastrar uma [Room](http://localhost:5259/Room)
     3- Fazer uma reserva [booking]: (http://localhost:5259/Booking)
 
-    
-# 4 -Após isso, cadastrar uma booking utilizando os ids do client e da room criados e verificar os retornos.
-
-
-# 5 Para rodar os testes unitarios basta somente excuta-los. Nao foi possivel usra o InMemory(estou verificando o pq), entao eu removo 
-# todos os dados no startup.
+# 4 Para rodar os testes unitarios basta somente excuta-los. Nao foi possivel usra o InMemory(estou verificando o pq), entao eu removo todos os dados no startup.
 
 
