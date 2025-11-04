@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Porter.Domain
+﻿namespace Porter.Common.Domain
 {
     public class Log : BaseDomain
     {

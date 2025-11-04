@@ -1,4 +1,4 @@
-﻿namespace Porter.Domain.Interfaces
+﻿namespace Porter.Common.Domain.Interfaces
 {
     public interface ILogRepository
     {

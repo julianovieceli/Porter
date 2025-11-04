@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Porter.Domain;
-using Porter.Domain.Interfaces;
+using Porter.Common.Domain;
+using Porter.Common.Domain.Interfaces;
 using System.Text.Json;
-using static Porter.Domain.Log;
+using static Porter.Common.Domain.Log;
 
 namespace Porter.Common.Services
 {

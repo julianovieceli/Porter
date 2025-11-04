@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Porter.Domain;
+using Porter.Common.Domain;
 
 namespace Porter.Common.EF.Repository
 {

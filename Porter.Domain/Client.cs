@@ -1,4 +1,5 @@
-﻿using Porter.Domain.Validators;
+﻿using Porter.Common.Domain;
+using Porter.Domain.Validators;
 
 namespace Porter.Domain
 {

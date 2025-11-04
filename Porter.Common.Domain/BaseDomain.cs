@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Porter.Domain
+namespace Porter.Common.Domain
 {
     public abstract class BaseDomain
     {

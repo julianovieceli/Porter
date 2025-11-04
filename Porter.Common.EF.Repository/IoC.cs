@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Porter.Domain.Interfaces;
+using Porter.Common.Domain.Interfaces;
 
 namespace Porter.Common.EF.Repository
 {
