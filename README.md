@@ -6,6 +6,8 @@
     docker run -d --name PorterDb -p 5432:5432 -e POSTGRES_PASSWORD=teste123 postgres
 
 # 2 - Rodar o script para criar o banco de dados e tabelas
+
+```
 CREATE database PorterDb ;
 
 -- drop TABLE Booking;
@@ -51,11 +53,11 @@ CREATE TABLE IF NOT EXISTS Log
     data JSONB,
     createTime TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
-
+```
 
 
 # 3 - Subir a aplicacao e cadastrar um client e uma room.
-# 4 -Após isso, cadastrar uma booking utilizando os ids do client e da room criados e verificar os retornos.
+# 4 -ApÃ³s isso, cadastrar uma booking utilizando os ids do client e da room criados e verificar os retornos.
 
 
 # 5 Para rodar os testes unitarios basta somente excuta-los. Nao foi possivel usra o InMemory(estou verificando o pq), entao eu removo 
