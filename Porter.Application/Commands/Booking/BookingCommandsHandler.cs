@@ -99,13 +99,11 @@ namespace Porter.Application.Services
         private readonly IValidator<UpdateBookingCommand> _bookingUpdateValidator;
 
         public UpdateBookingCommandHandler(ILogger<UpdateBookingCommandHandler> logger, IMapper dataMapper, IBookingRepository bookingRepository,
-            IRoomRepository roomRepository, IClientRepository clientRepository, ILogService logService,
+            ILogService logService,
             IValidator<UpdateBookingCommand> bookingUpdateValidator)
             : base(logger, dataMapper, logService)
         {
             _bookingRepository = bookingRepository;
-            _roomRepository = roomRepository;
-            _clientRepository = clientRepository;
             _bookingUpdateValidator = bookingUpdateValidator;
         }
 
@@ -166,17 +164,13 @@ namespace Porter.Application.Services
     public class DeleteBookingCommandHandler : BaseService, IRequestHandler<DeleteBookingByIdCommand, Result>
     {
         private readonly IBookingRepository _bookingRepository;
-        private readonly IRoomRepository _roomRepository;
-        private readonly IClientRepository _clientRepository;
 
 
         public DeleteBookingCommandHandler(ILogger<DeleteBookingCommandHandler> logger, IMapper dataMapper, IBookingRepository bookingRepository,
-            IRoomRepository roomRepository, IClientRepository clientRepository, ILogService logService)
+            ILogService logService)
             : base(logger, dataMapper, logService)
         {
             _bookingRepository = bookingRepository;
-            _roomRepository = roomRepository;
-            _clientRepository = clientRepository;
         }
 
 
