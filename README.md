@@ -3,6 +3,7 @@
 # Passos para rodar
 
 # 1- Subindo um container com PostgreSQL
+    docker pull postgres
     docker run -d --name PorterDb -p 5432:5432 -e POSTGRES_PASSWORD=teste123 postgres
 
 # 2 - Rodar o script para criar o banco de dados e tabelas
