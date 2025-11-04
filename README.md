@@ -59,7 +59,13 @@ CREATE TABLE IF NOT EXISTS Log
 Link [Swaggwer](http://localhost:5259/swagger/index.html)
 
 
-# 3 - Subir a aplicacao e cadastrar um client e uma room.
+# 3 - Rodando a applicação
+    Executar o projeto Porter.Api.
+    1- Cadastrar um [cliente](http://localhost:5259/Client)
+    2- Cadastrar uma [Room](http://localhost:5259/Room)
+    3- Fazer uma reserva [booking]: (http://localhost:5259/Booking)
+
+    
 # 4 -Após isso, cadastrar uma booking utilizando os ids do client e da room criados e verificar os retornos.
 
 
