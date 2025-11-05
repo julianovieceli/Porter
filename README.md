@@ -1,6 +1,6 @@
 # Porter
 
-# Passos para rodar
+# Passos para rodar Localmente
 
 # 1- Subindo um container com PostgreSQL
     docker pull postgres
@@ -67,4 +67,15 @@ Link [Swaggwer](http://localhost:5259/swagger/index.html)
 
 # 4 Para rodar os testes unitarios basta somente excuta-los. Nao foi possivel usra o InMemory(estou verificando o pq), entao eu removo todos os dados no startup.
 
+
+# OBS:
+ Para rodar em containers, bata subir o container abaixo(nao esquecendo de criar o script no devido banco acima):
+ ```
+    docker compose -f docker-compose-porter.yml down
+    docker compose -f docker-compose-porter.yml up -d
+```
+    Rodando a applicação dentro docker(porta:6001)
+    1- Cadastrar um [cliente](http://localhost:6001/Client)
+    2- Cadastrar uma [Room](http://localhost:6001/Room)
+    3- Fazer uma reserva [booking]: (http://localhost:6001/Booking)
 

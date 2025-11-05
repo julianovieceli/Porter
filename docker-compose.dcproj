@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>e34a9c49-f74c-47f0-b9aa-6254bd2a9d97</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceName>porter.api</DockerServiceName>
+	  <DockerComposeBaseFilePath>docker-compose-porter</DockerComposeBaseFilePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="docker-compose-porter.yml" />
+    <None Include=".dockerignore" />
+  </ItemGroup>
+</Project>

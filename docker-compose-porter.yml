@@ -1,0 +1,30 @@
+services:
+  porter.api:
+    container_name: "porter.api"
+    image: ${DOCKER_REGISTRY-}porterapi
+    build:
+      context: .
+      dockerfile: Porter.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - "ConnectionStrings:DefaultConnection=Host=porterDb;Port=5432;Username=postgres;Password=teste123;Database=porterdb;Include Error Detail=True;"
+    ports:
+      - "6001:8080"
+    depends_on:
+      - porterDb
+  porterDb:
+    container_name: "porterDb"
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: porterdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: teste123
+    ports:
+      - "6000:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
