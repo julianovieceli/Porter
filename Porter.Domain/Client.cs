@@ -42,7 +42,7 @@ namespace Porter.Domain
         {
             Name = name;
             Docto = docto;
-            CreateTime = DateTime.UtcNow;
+            CreateTime = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
         }
     }

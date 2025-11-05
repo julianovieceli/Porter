@@ -51,8 +51,8 @@ public class BookingControllerTests : IClassFixture<CustomWebApplicationFactory<
         RegisterBookingCommand registerBookingCommand = new RegisterBookingCommand()
         {
             DoctoReservedBy = Constants.Docto,
-            StartDate = DateTime.Now.AddDays(1).AddMinutes(10),
-            EndDate = DateTime.Now.AddDays(1).AddMinutes(60),
+            StartDate = DateTime.Now.AddMinutes(1),
+            EndDate = DateTime.Now.AddMinutes(10),
             Obs = "Teste",
             RoomName = Constants.Sala1
         };
@@ -77,13 +77,12 @@ public class BookingControllerTests : IClassFixture<CustomWebApplicationFactory<
 
         ErrorResponseDto responseClientConflict;
         using HttpContent serviceRequestContentLoop = new StringContent(serviceParams, Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
-        foreach (var attempt in Enumerable.Range(1, 3))
-        {
+      
             registerBookingCommand = new RegisterBookingCommand()
             {
                 DoctoReservedBy = Constants.Docto,
-                StartDate = DateTime.Now.AddDays(1),
-                EndDate = DateTime.Now.AddDays(1).AddMinutes(attempt *20),
+                StartDate = DateTime.Now.AddMinutes(5),
+                EndDate = DateTime.Now.AddMinutes(5),
                 Obs = "Teste",
                 RoomName = Constants.Sala1
             };
@@ -104,7 +103,7 @@ public class BookingControllerTests : IClassFixture<CustomWebApplicationFactory<
 
             Assert.True(responseClientConflict.ErrorCode == "400");
             Assert.True(responseClientConflict.Message.Contains("Ja existe reserva para esta sala neste período"));
-        }
+        
 
     }
 

@@ -28,7 +28,7 @@ namespace Porter.Domain
         public Room(string name)
         {
             _name = name;
-            CreateTime = DateTime.UtcNow;
+            CreateTime = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         }
     }
 }

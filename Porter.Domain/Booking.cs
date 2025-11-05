@@ -33,7 +33,7 @@ namespace Porter.Domain
             if (startDate >= endDate)
                 throw new Exception("Data de início deve ser menor que a data de fim!");
 
-            if (startDate < DateTime.UtcNow)
+            if (startDate < DateTime.UtcNow.ToLocalTime())
                 throw new Exception("Data de início deve ser maior ou igual a data atual!");
 
             if(room == null)
@@ -47,7 +47,7 @@ namespace Porter.Domain
             StartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
             EndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc); ;
             Obs = obs;
-            CreateTime = DateTime.UtcNow;
+            CreateTime = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         }
 
         public void Update(DateTime startDate, DateTime endDate, string obs)

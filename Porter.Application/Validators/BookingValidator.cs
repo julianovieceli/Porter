@@ -22,7 +22,7 @@ namespace Porter.Application.Validators
               Custom(
                   (startdate, context) =>
                   {
-                      if (startdate < DateTime.UtcNow)
+                      if (startdate < DateTime.UtcNow.ToLocalTime())
                           context.AddFailure("Data de início deve ser maior ou igual a data atual!.");
                   });
 

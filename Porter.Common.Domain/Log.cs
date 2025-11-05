@@ -34,7 +34,7 @@
             Action = action;
             EntityType = entityType.Name;
             MethodName = methodName;
-            CreateTime = DateTime.UtcNow;
+            CreateTime = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         }
 
 
