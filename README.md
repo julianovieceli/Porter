@@ -73,9 +73,15 @@ Link [Swaggwer](http://localhost:5259/swagger/index.html)
  ```
     docker compose -f docker-compose-porter.yml down
     docker compose -f docker-compose-porter.yml up -d
+
+    ## Ou para forçar somente o build da imagem novamente
+    docker compose  -f docker-compose-porter.yml up --build --force-recreate porter.api -d
 ```
     Rodando a applicação dentro docker(porta:6001)
     1- Cadastrar um [cliente](http://localhost:6001/Client)
     2- Cadastrar uma [Room](http://localhost:6001/Room)
     3- Fazer uma reserva [booking]: (http://localhost:6001/Booking)
+
+
+
 
