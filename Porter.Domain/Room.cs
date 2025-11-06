@@ -1,4 +1,5 @@
 ﻿using Porter.Common.Domain;
+using Porter.Common.Domain.ExtensionMethods;
 using Porter.Domain.Validators;
 
 namespace Porter.Domain
@@ -28,7 +29,7 @@ namespace Porter.Domain
         public Room(string name)
         {
             _name = name;
-            CreateTime = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+            CreateTime = DateTime.SpecifyKind(DateTime.Now.ToBrazilDatetime(), DateTimeKind.Utc);
         }
     }
 }

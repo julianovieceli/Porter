@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Porter.Application.Commands.Booking;
+using Porter.Common.Domain.ExtensionMethods;
 using Porter.Domain.Validators;
 
 namespace Porter.Application.Validators
@@ -22,7 +23,7 @@ namespace Porter.Application.Validators
               Custom(
                   (startdate, context) =>
                   {
-                      if (startdate < DateTime.UtcNow.ToLocalTime())
+                      if (startdate < DateTime.Now.ToBrazilDatetime())
                           context.AddFailure("Data de início deve ser maior ou igual a data atual!.");
                   });
 
@@ -46,7 +47,7 @@ namespace Porter.Application.Validators
               Custom(
                   (startdate, context) =>
                   {
-                      if (startdate < DateTime.UtcNow)
+                      if (startdate < DateTime.Now.ToBrazilDatetime())
                           context.AddFailure("Data de início deve ser maior ou igual a data atual!.");
                   });
 

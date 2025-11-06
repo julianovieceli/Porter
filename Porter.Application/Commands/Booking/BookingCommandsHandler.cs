@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Porter.Application.Commands.Booking;
 using Porter.Common;
+using Porter.Common.Domain.ExtensionMethods;
 using Porter.Common.Services;
 using Porter.Common.Utils;
 using Porter.Domain;
@@ -41,6 +42,8 @@ namespace Porter.Application.Services
                 var validatorResult = _bookingValidator.Validate(requestRegisterBookingDto);
                 if (!validatorResult.IsValid)
                 {
+                    _logger.LogInformation(DateTime.Now.ToBrazilDatetime().ToString("yyyy-MM-dd HH:mm:ss") + " - " + 
+                        requestRegisterBookingDto.StartDate.ToString("yyyy-MM-dd HH:mm:ss") + " - " + requestRegisterBookingDto.EndDate.ToString("yyyy-MM-dd HH:mm:ss"));
                     return Result.Failure("400", validatorResult.Errors.FirstOrDefault().ErrorMessage);//Erro q usuario ja existe com este documento.
                 }
 

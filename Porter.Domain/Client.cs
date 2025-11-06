@@ -1,4 +1,5 @@
 ﻿using Porter.Common.Domain;
+using Porter.Common.Domain.ExtensionMethods;
 using Porter.Domain.Validators;
 
 namespace Porter.Domain
@@ -42,7 +43,7 @@ namespace Porter.Domain
         {
             Name = name;
             Docto = docto;
-            CreateTime = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+            CreateTime = DateTime.SpecifyKind(DateTime.Now.ToBrazilDatetime(), DateTimeKind.Utc);//   DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 
         }
     }
