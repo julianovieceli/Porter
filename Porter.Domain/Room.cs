@@ -1,5 +1,5 @@
-﻿using Porter.Common.Domain;
-using Porter.Common.Domain.ExtensionMethods;
+﻿using Personal.Common.Domain;
+using Personal.Common.Domain.ExtensionMethods;
 using Porter.Domain.Validators;
 
 namespace Porter.Domain

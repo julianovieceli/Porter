@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Porter.Common;
+using Personal.Common;
 using System.ComponentModel.DataAnnotations;
 
 namespace Porter.Application.Commands.Client

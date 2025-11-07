@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Personal.Common;
+using Personal.Common.Utils;
 using Porter.Application;
-using Porter.Common.Utils;
 using Porter.Dto;
+using Personal.Common.EF.Repository;
 using Porter.Infra.Postgres.Repository;
-using Porter.Common;
-using Porter.Common.EF.Repository;
-using Porter.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

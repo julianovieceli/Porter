@@ -2,9 +2,9 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Personal.Common;
 using Porter.Application.Commands.Client;
 using Porter.Application.Services;
-using Porter.Common;
 using Porter.Domain.Interfaces;
 using Porter.Dto;
 

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Personal.Common;
 using Porter.Application.Services;
-using Porter.Common;
 using Porter.Domain.Interfaces;
 using Porter.Domain.Validators;
 using Porter.Dto;

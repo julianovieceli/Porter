@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
+using Personal.Common.Domain.ExtensionMethods;
 using Porter.Application.Commands.Booking;
-using Porter.Common.Domain.ExtensionMethods;
 using Porter.Domain.Validators;
 
 namespace Porter.Application.Validators

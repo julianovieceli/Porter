@@ -14,13 +14,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Porter.Common\Porter.Common.csproj" />
+    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Porter.Domain\Porter.Domain.csproj" />
     <ProjectReference Include="..\Porter.Dto\Porter.Dto.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Interfaces\" />
+    <Reference Include="Personal.Common">
+      <HintPath>..\Libs\Personal.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Personal.Common.Domain">
+      <HintPath>..\Libs\Personal.Common.Domain.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

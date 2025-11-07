@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Personal.Common.Utils.ExtensionMethods;
 using Porter.Domain;
 using Porter.Domain.Interfaces;
 using System.Linq.Expressions;
-using Porter.Common.Utils.ExtensionMethods;
 
 
 namespace Porter.Infra.Postgres.Repository.Repository

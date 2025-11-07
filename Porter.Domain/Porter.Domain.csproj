@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Porter.Common.Domain\Porter.Common.Domain.csproj" />
+    <Reference Include="Personal.Common.Domain">
+      <HintPath>..\Libs\Personal.Common.Domain.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

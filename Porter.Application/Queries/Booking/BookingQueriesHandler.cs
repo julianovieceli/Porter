@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Personal.Common;
+using Personal.Common.Services;
 using Porter.Application.Queries.Booking;
-using Porter.Common;
-using Porter.Common.Services;
 using Porter.Domain.Interfaces;
 using Porter.Dto;
 using System.Reflection;

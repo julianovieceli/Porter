@@ -14,9 +14,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Porter.Common.EF.Repository\Porter.Common.EF.Repository.csproj" />
-    <ProjectReference Include="..\Porter.Common\Porter.Common.csproj" />
     <ProjectReference Include="..\Porter.Domain\Porter.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Personal.Common">
+      <HintPath>..\Libs\Personal.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Personal.Common.Domain">
+      <HintPath>..\Libs\Personal.Common.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Personal.Common.EF.Repository">
+      <HintPath>..\Libs\Personal.Common.EF.Repository.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
