@@ -3,8 +3,8 @@ using Personal.Common;
 using Personal.Common.Utils;
 using Porter.Application;
 using Porter.Dto;
-using Personal.Common.EF.Repository;
 using Porter.Infra.Postgres.Repository;
+using Personal.Common.Infra.EF.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

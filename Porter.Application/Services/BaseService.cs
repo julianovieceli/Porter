@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Personal.Common.Services;
+using Personal.Common.Domain.Interfaces.Services;
 
 namespace Porter.Application.Services
 {

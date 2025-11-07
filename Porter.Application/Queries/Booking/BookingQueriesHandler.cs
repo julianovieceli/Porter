@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Personal.Common;
+using Personal.Common.Domain;
+using Personal.Common.Domain.Interfaces.Services;
 using Personal.Common.Services;
 using Porter.Application.Queries.Booking;
 using Porter.Domain.Interfaces;

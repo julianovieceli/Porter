@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Personal.Common;
+using Personal.Common.Domain;
 using Porter.Dto;
 
 namespace Porter.Api.Controllers

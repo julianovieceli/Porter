@@ -2,9 +2,9 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Personal.Common;
+using Personal.Common.Domain;
 using Personal.Common.Domain.ExtensionMethods;
-using Personal.Common.Services;
+using Personal.Common.Domain.Interfaces.Services;
 using Personal.Common.Utils;
 using Porter.Application.Commands.Booking;
 using Porter.Domain;

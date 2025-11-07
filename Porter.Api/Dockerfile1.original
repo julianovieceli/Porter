@@ -13,9 +13,12 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Porter.Api/Porter.Api.csproj", "Porter.Api/"]
 COPY ["Porter.Application/Porter.Application.csproj", "Porter.Application/"]
+COPY ["Porter.Common/Porter.Common.csproj", "Porter.Common/"]
 COPY ["Porter.Domain/Porter.Domain.csproj", "Porter.Domain/"]
+COPY ["Porter.Common.Domain/Porter.Common.Domain.csproj", "Porter.Common.Domain/"]
 COPY ["Porter.Dto/Porter.Dto.csproj", "Porter.Dto/"]
 COPY ["Porter.Infra.Postgres.Repository/Porter.Infra.Postgres.Repository.csproj", "Porter.Infra.Postgres.Repository/"]
+COPY ["Porter.Common.EF.Repository/Porter.Common.EF.Repository.csproj", "Porter.Common.EF.Repository/"]
 RUN dotnet restore "./Porter.Api/Porter.Api.csproj"
 COPY . .
 WORKDIR "/src/Porter.Api"

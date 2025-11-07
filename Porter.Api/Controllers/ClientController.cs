@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Personal.Common;
+using Personal.Common.Domain;
 using Porter.Application.Commands.Client;
 using Porter.Application.Queries.Client;
 using Porter.Dto;

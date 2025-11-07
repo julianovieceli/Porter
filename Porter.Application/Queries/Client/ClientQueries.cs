@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Personal.Common;
+using Personal.Common.Domain;
 
 namespace Porter.Application.Queries.Client
 {

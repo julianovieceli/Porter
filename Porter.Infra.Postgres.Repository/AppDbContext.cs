@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Personal.Common.EF.Repository;
+using Personal.Common.Infra.EF.Repository;
 using Porter.Domain;
 
 namespace Porter.Infra.Postgres.Repository

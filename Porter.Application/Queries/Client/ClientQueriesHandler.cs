@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Personal.Common;
+using Personal.Common.Domain;
 using Porter.Application.Services;
 using Porter.Domain.Interfaces;
 using Porter.Domain.Validators;

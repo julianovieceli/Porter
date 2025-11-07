@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Personal.Common;
+using Personal.Common.Domain;
 using Porter.Application.Queries.Room;
 using Porter.Domain.Interfaces;
 using Porter.Dto;
