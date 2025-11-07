@@ -53,7 +53,8 @@ public class BookingControllerTests : IClassFixture<CustomWebApplicationFactory<
             DoctoReservedBy = Constants.Docto,
             StartDate = DateTime.Now.AddMinutes(1),
             EndDate = DateTime.Now.AddMinutes(10),
-            Obs = "Teste",
+            Obs = """{"teste": "dfd" }""",
+
             RoomName = Constants.Sala1
         };
 

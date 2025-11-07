@@ -1,4 +1,6 @@
-﻿namespace Porter.Common.Domain
+﻿using Porter.Common.Domain.ExtensionMethods;
+
+namespace Porter.Common.Domain
 {
     public class Log : BaseDomain
     {
@@ -34,7 +36,7 @@
             Action = action;
             EntityType = entityType.Name;
             MethodName = methodName;
-            CreateTime = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+            CreateTime = DateTime.SpecifyKind(DateTime.Now.ToBrazilDatetime(), DateTimeKind.Utc);
         }
 
 

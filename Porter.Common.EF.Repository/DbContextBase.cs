@@ -8,8 +8,6 @@ namespace Porter.Common.EF.Repository
     {
         public DbSet<Log> Logs { get; set; } = default!;
 
-
-
    
         public DbContextBase(DbContextOptions options) : base(options)
         {
@@ -25,13 +23,15 @@ namespace Porter.Common.EF.Repository
      
     }
 
-    public class LogConfiguration : IEntityTypeConfiguration<Log>
+    public class LogConfiguration : EntityConfigurationBase<Log>
     {
-        public void Configure(EntityTypeBuilder<Log> builder)
+        public LogConfiguration() : base("log")
         {
-            builder.ToTable("log");
-            builder.Property(e => e.Id)
-                .HasColumnName("id");
+        }
+
+        public new void Configure(EntityTypeBuilder<Log> builder)
+        {
+            base.Configure(builder);
 
 
             builder.Property(e => e.Action)
@@ -48,8 +48,6 @@ namespace Porter.Common.EF.Repository
                 .HasColumnName("entitytype");
 
 
-            builder.Property(e => e.CreateTime)
-                .HasColumnName("createtime");
 
 
         }

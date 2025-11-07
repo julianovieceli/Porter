@@ -35,13 +35,15 @@ namespace Porter.Infra.Postgres.Repository
      
     }
 
-    public class ClientConfiguration : IEntityTypeConfiguration<Client>
+    public class ClientConfiguration : EntityConfigurationBase<Client>
     {
-        public void Configure(EntityTypeBuilder<Client> builder)
+        public ClientConfiguration() : base("client")
         {
-            builder.ToTable("client");
-            builder.Property(e => e.Id)
-                .HasColumnName("id");
+        }
+
+        public override void Configure(EntityTypeBuilder<Client> builder)
+        {
+            base.Configure(builder);
 
 
             builder.Property(e => e.Docto)
@@ -51,31 +53,23 @@ namespace Porter.Infra.Postgres.Repository
                 .HasColumnName("name");
 
 
-            builder.Property(e => e.CreateTime)
-                .HasColumnName("createtime");
-
-            //builder.HasMany(c => c.Bookings)
-            //.WithOne(b => b.ReservedBy)
-            //.HasForeignKey(b => b.ReservedById)
-            //.IsRequired();
         }
     }
 
-    public class RoomConfiguration : IEntityTypeConfiguration<Room>
+    public class RoomConfiguration : EntityConfigurationBase<Room>
     {
-        public void Configure(EntityTypeBuilder<Room> builder)
-        {
-            builder.ToTable("room");
-            builder.Property(e => e.Id)
-                .HasColumnName("id");
 
+
+        public RoomConfiguration() : base("room")
+        {
+        }
+        public override void Configure(EntityTypeBuilder<Room> builder)
+        {
+            base.Configure(builder);
 
             builder.Property(e => e.Name)
                 .HasColumnName("name");
 
-
-            builder.Property(e => e.CreateTime)
-                .HasColumnName("createtime");
 
             //builder.HasMany(b => b.Bookings)
             //.WithOne(b => b.Room)       
@@ -84,20 +78,19 @@ namespace Porter.Infra.Postgres.Repository
         }
     }
 
-    public class BookingConfiguration : IEntityTypeConfiguration<Booking>
+    public class BookingConfiguration : EntityConfigurationBase<Booking>
     {
-        public void Configure(EntityTypeBuilder<Booking> builder)
+        public BookingConfiguration() : base("booking")
         {
-            builder.ToTable("booking");
-            builder.Property(e => e.Id)
-                .HasColumnName("id");
+        }
+
+        public override  void Configure(EntityTypeBuilder<Booking> builder)
+        {
+            base.Configure(builder);
 
             builder.Property(e => e.Obs)
                 .HasColumnName("obs");
 
-
-            builder.Property(e => e.CreateTime)
-                .HasColumnName("createtime");
 
             builder.Property(e => e.StartDate)
                 .HasColumnName("startdate");
