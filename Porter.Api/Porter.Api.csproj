@@ -27,6 +27,9 @@
     <Reference Include="Personal.Common.Domain">
       <HintPath>..\Libs\Personal.Common.Domain.dll</HintPath>
     </Reference>
+    <Reference Include="Personal.Common.Dto">
+      <HintPath>..\Libs\Personal.Common.Dto.dll</HintPath>
+    </Reference>
     <Reference Include="Personal.Common.Infra.EF.Repository">
       <HintPath>..\Libs\Personal.Common.Infra.EF.Repository.dll</HintPath>
     </Reference>

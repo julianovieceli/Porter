@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Personal.Common.Dto">
+      <HintPath>..\Libs\Personal.Common.Dto.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

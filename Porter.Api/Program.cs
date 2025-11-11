@@ -5,6 +5,7 @@ using Porter.Application;
 using Porter.Dto;
 using Porter.Infra.Postgres.Repository;
 using Personal.Common.Infra.EF.Repository;
+using Personal.Common.Dto;
 
 var builder = WebApplication.CreateBuilder(args);
 

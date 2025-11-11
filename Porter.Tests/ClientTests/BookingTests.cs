@@ -1,4 +1,5 @@
 ﻿using Personal.Common.Domain;
+using Personal.Common.Dto;
 using Porter.Application.Commands.Booking;
 using Porter.Dto;
 using System.Net;
